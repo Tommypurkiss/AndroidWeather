@@ -10,16 +10,10 @@ Creating to learn more and improve my Java/Android skills further.
 
 
 TODO:
-- Implement Google Places API and be able to view locations you type through a search bar
-  - Choose a location and have that locations weather data also parse through json and siplay it on screen
 
-- Include a settings menu 
-  - Change units from M/I/K
-  - Be able to save locations
+Trello Board to keep up with things to be done
 
-- Improve the UI/UX
-
-- Add a 5 day future forecast 
+https://trello.com/b/Spgg8DpV/android-weather-app
 
 
 
@@ -29,4 +23,7 @@ WHAT I HAVE LEARNED:
 - Parsing the JSON data and with JSONObjects and JSONArrays
 - Calling the data and displaying it visually
 - Being able to find the weather data based on the devices location through geographic coordinates
+
+- How to create a splash screen that loads up before the main acitivity
+-
 
