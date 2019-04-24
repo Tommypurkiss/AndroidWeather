@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,35 +47,43 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
+
 
     //VARS
     public TextView tvTemperature;
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
-    public TextView tvLocDetails;
+    //public TextView tvLocDetails;
     public EditText mSearchText;
-
+    public TextView tvLastUpdated;
+    public TextView tvTempIcon;
+    public TextView tvTempMin;
+    public TextView tvTempMax;
 
     public RequestQueue mRequestQueue;
 
-    private Boolean mLocationPermissionGranted = false;
-    private FusedLocationProviderClient mFusedLocationClient;
+    public Boolean mLocationPermissionGranted = false;
+    public FusedLocationProviderClient mFusedLocationClient;
 
 
 
 
     //CONST
-    private final static String TAG = "MainActivity";
-    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    private static final int ERROR_DIALOG_REQUEST = 9001;
+    public final static String TAG = "MainActivity";
+    public static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    public static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final String API_KEY = "7b35bff27c44e02a0ed4347c65c2ffa8"; //openweathermap api key
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
+    public static final int ERROR_DIALOG_REQUEST = 9001;
 
     //string
     //public static String lat;
@@ -98,8 +107,12 @@ public class MainActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.tv_location);
         tvDescription = findViewById(R.id.tv_description);
         buttonCurrentLocation = findViewById(R.id.button_current_location);
-        tvLocDetails = findViewById(R.id.tv_location_details);
+        //tvLocDetails = findViewById(R.id.tv_location_details);
         mSearchText = findViewById(R.id.et_search);
+        tvLastUpdated = findViewById(R.id.tv_last_updated);
+        tvTempIcon = findViewById(R.id.iv_temp_icon);
+        tvTempMin = findViewById(R.id.tv_temp_min);
+        tvTempMax = findViewById(R.id.tv_temp_max);
 
 
         mRequestQueue = Volley.newRequestQueue(this);
@@ -137,22 +150,23 @@ public class MainActivity extends AppCompatActivity {
 
                 refreshData();
 
-                pullToRefresh.setRefreshing(false); // keep on false to keep refreshing?
+                pullToRefresh.setRefreshing(true); // keep on false to keep refreshing?
             }
         });
 
-
+        lastUpdated();
 
         buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDeviceLocation(); //gets device location and weather data
-                //getWeather();
-                //getWeatherByDeviceLocation();
+                getDeviceLocation(); //WORKS - gets device location and weather data
                 Log.d(TAG, "Location Button: " + buttonCurrentLocation);
                 Toast.makeText(MainActivity.this, "Current Location Weather", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
 
     @Override
@@ -221,6 +235,37 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    //calls get data and shows a toast message
+    private void refreshData() {
+        //getWeather();
+
+        //TODO - fix reloading animation
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+
+
+
+        //TODO change toast text later on
+        Toast.makeText(this, "Refreshed Weather Data Complete", Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    private void lastUpdated() {
+
+        //get current date and time and print it in the text view
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentDateAndTime = sdf.format(new Date());
+
+        tvLastUpdated.setText("Last Updated: " + currentDateAndTime);
+
+        Log.d(TAG, "refreshData: show date and time" + currentDateAndTime);
+
+    }
 
 
     // works
@@ -280,19 +325,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //calls get data and shows a toast message
-    private void refreshData() {
-        //getWeather();
-
-        //TODO - fix reloading animation
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-
-        //TODO change toast text later on
-        Toast.makeText(this, "Refreshed Weather Data Complete", Toast.LENGTH_SHORT).show();
-    }
 
 
 
@@ -301,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeatherByLatLng() {
 
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=7b35bff27c44e02a0ed4347c65c2ffa8";
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
         // MARK - https://api.openweathermap.org/data/2.5/weather?lat=51.50853&lon=-0.12574&appid=7b35bff27c44e02a0ed4347c65c2ffa8 - London latlng example
 
@@ -317,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeatherByCityName() {
 
-        //TODO - get cityname from geo locate and pass it through this url api
+        //TODO - get city name from geo locate and pass it through this url api
         //String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=7b35bff27c44e02a0ed4347c65c2ffa8";
 
 
@@ -331,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
     public void getWeatherByDeviceLocation() {
 
 
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=7b35bff27c44e02a0ed4347c65c2ffa8";
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
         Log.d(TAG, "string url latlon total: " + urlAPILatLong);
 
@@ -352,14 +384,28 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray weather = response.getJSONArray("weather");
                     JSONObject jsoWeather = weather.getJSONObject(0);
 
+                    //description
                     String description = jsoWeather.getString("description");
                     tvDescription.setText(description);
+
+                    //icon
+                    String weatherIcon = jsoWeather.getString("icon");
+                    tvTempIcon.setText(weatherIcon);
 
                     //temp
                     JSONObject main = response.getJSONObject("main");
                     String temperature = main.getString("temp");
                     String tempFormat = String.valueOf(temperature).split("\\.")[0];
                     tvTemperature.setText(tempFormat);
+
+                    String tempMin = main.getString("temp_min");
+                    String tempMinFormat = String.valueOf(tempMin).split("\\.")[0];
+                    tvTempMin.setText(tempMinFormat);
+
+                    String tempMax = main.getString("temp_max");
+                    String tempMaxFormat = String.valueOf(tempMax).split("\\.")[0];
+                    tvTempMax.setText(tempMaxFormat);
+
 
                     //name of location
                     String name = response.getString("name");
@@ -386,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
     /* -------------- LOCATION -------------- */
 
 
-    private void geoLocate() {
+    public void geoLocate() {
 
         Log.d(TAG, "geoLocate: geolocating");
 
@@ -432,12 +478,12 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d(TAG, "current Location is " + currentLocation);
 
-                            Double.toString(currentLocation.getLatitude());
-                            Double.toString(currentLocation.getLongitude());
-                            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            //Double.toString(currentLocation.getLatitude());
+                            //Double.toString(currentLocation.getLongitude());
+                            //LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
 
-                            tvLocDetails.setText(latLng.toString());
+                            //tvLocDetails.setText(latLng.toString());
 
 
                             //store lat and lon in their respective vars as string
@@ -456,7 +502,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "double value of: " + lat + lon);
 
 
-                            //TODO MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device lccation
+                            //TODO MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device location first
                             getWeatherByDeviceLocation();
 
 
@@ -475,7 +521,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //pops up dialog box asking for location permission
-    private void getLocationPermission() {
+    public void getLocationPermission() {
 
         String[] permissions = {FINE_LOCATION, COARSE_LOCATION};
 
@@ -490,8 +536,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "location permission true", Toast.LENGTH_SHORT).show();
 
                 init();
-
-
             }
         } else {
             ActivityCompat.requestPermissions(this, permissions,
