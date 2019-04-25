@@ -268,6 +268,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void tempUnits() {
+
+        /* TODO
+        sudo
+
+        if temp unit button? == c value {
+
+        do the kelvin temp value - 273.15
+        } if else? temp == f value {
+        do the kelvin temp value * 9/(over or divided?)5 - 459.67
+
+        } else {
+
+        show kelvin
+        }
+
+
+         */
+    }
+
+
+
+
+
+
+
     // works
     /* -------------- WEATHER LONDON API KEY SAMPLE -------------- */
 
