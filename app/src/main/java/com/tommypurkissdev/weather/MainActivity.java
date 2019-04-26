@@ -17,9 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -39,17 +39,15 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.maps.model.*;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -69,12 +67,14 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvTempMin;
     public TextView tvTempMax;
 
+    public ImageView imageView;
+
     public RequestQueue mRequestQueue;
 
     public Boolean mLocationPermissionGranted = false;
     public FusedLocationProviderClient mFusedLocationClient;
 
-
+    public FirebaseAnalytics mFirebaseAnalytics;
 
 
     //CONST
@@ -114,8 +114,18 @@ public class MainActivity extends AppCompatActivity {
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
 
+        imageView = findViewById(R.id.iv_weather_icon);
+
 
         mRequestQueue = Volley.newRequestQueue(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+/*        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);*/
 
 
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
@@ -416,6 +426,17 @@ public class MainActivity extends AppCompatActivity {
 
                     //icon
                     String weatherIcon = jsoWeather.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon.contentEquals("50d")) {
+                        imageView.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon.contentEquals("10d")) {
+                        imageView.setImageResource(R.drawable.rain_cloud);
+
+                    }
+
+
                     tvTempIcon.setText(weatherIcon);
 
                     //temp
@@ -633,4 +654,3 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
 
  */
-
