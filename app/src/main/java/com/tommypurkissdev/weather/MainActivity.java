@@ -400,10 +400,10 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //returns correct latlong location
                     JSONObject jsonObject = response.getJSONObject("coord");
-                        String jsoLon = jsonObject.getString("lon");
-                        String jsoLat = jsonObject.getString("lat");
-                        lat = Double.valueOf(jsoLat);
-                        lon = Double.valueOf(jsoLon);
+                    String jsoLon = jsonObject.getString("lon");
+                    String jsoLat = jsonObject.getString("lat");
+                    lat = Double.valueOf(jsoLat);
+                    lon = Double.valueOf(jsoLon);
 
 
                     //weather details description
