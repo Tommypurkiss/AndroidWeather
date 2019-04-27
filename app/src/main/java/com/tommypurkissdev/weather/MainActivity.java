@@ -544,8 +544,13 @@ public class MainActivity extends AppCompatActivity {
 
                             //store lat and lon in their respective vars as double
 
-                            lat = currentLocation.getLatitude();
-                            lon = currentLocation.getLongitude();
+                            //checks if not null first then returns lat lon value
+                            if (currentLocation != null) {
+
+                                lat = currentLocation.getLatitude();
+                                lon = currentLocation.getLongitude();
+
+                            }
 
                             Log.d(TAG, "double value of: " + lat + lon);
 
