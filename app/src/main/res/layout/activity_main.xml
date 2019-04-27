@@ -60,6 +60,7 @@
     <include layout="@layout/content_main" />
 
     <!--TODO CHECK THIS SWIPE TO REFRESH - TURN INTO SMALL BUTTON-->
+
     <!--    <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/pullToRefresh"
             android:layout_width="match_parent"

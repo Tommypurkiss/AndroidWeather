@@ -474,9 +474,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     /* -------------- LOCATION -------------- */
 
 
@@ -529,35 +526,24 @@ public class MainActivity extends AppCompatActivity {
                             //Double.toString(currentLocation.getLatitude());
                             //Double.toString(currentLocation.getLongitude());
                             //LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
-
                             //tvLocDetails.setText(latLng.toString());
-
-
                             //store lat and lon in their respective vars as string
-
                             //lat = String.valueOf(currentLocation.getLatitude());
                             //lon = String.valueOf(currentLocation.getLongitude());
-
                             //Log.d(TAG, "string value of: " + lat + lon);
-
-
                             //store lat and lon in their respective vars as double
 
                             //checks if not null first then returns lat lon value
                             if (currentLocation != null) {
-
                                 lat = currentLocation.getLatitude();
                                 lon = currentLocation.getLongitude();
-
                             }
+
 
                             Log.d(TAG, "double value of: " + lat + lon);
 
-
                             //MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device location first
                             getWeatherByDeviceLocation();
-
 
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
