@@ -8,194 +8,173 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/white_border"
-        android:elevation="10dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/iv_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@drawable/ic_search_black_32dp" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-        <EditText
-            android:id="@+id/et_search"
+
+        <android.support.constraint.ConstraintLayout
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/iv_search"
-            android:layout_toRightOf="@+id/iv_search"
-            android:background="#fff"
-            android:hint="Enter City"
-            android:imeOptions="actionSearch"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColor="#000"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scrollbars="vertical">
 
 
-    <TextView
-        android:id="@+id/tv_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="280dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        android:textSize="85sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_temp_min"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="49dp"
+                android:layout_marginLeft="49dp"
+                android:layout_marginTop="280dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                android:textSize="85sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:text="Min:"
-        android:textColor="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_temp_min"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginLeft="48dp"
+                android:text="Min:"
+                android:textColor="@android:color/black"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_temp_min"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_temp_min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="18dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
-
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Max:"
-        android:textColor="@android:color/black"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_temp_max"
-        app:layout_constraintStart_toStartOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/tv_temp_max"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/tv_temp_min"
-        app:layout_constraintTop_toBottomOf="@+id/tv_temp_min" />
+            <TextView
+                android:id="@+id/tv_temp_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="45dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
 
-    <TextView
-        android:id="@+id/tv_degrees"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:text="°"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="50sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_temp"
-        app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max:"
+                android:textColor="@android:color/black"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_temp_max"
+                app:layout_constraintStart_toStartOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/tv_temp_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="29dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp_min" />
 
 
-    <TextView
+            <TextView
+                android:id="@+id/tv_degrees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="°"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="50sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_temp"
+                app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+
+
+            <!--    <TextView
         android:id="@+id/iv_temp_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="543dp" />-->
 
 
-    <ImageView
-        android:id="@+id/iv_weather_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginBottom="95dp"
-        android:background="@android:color/holo_blue_bright"
-        android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/tv_temp_max"
-        app:layout_constraintStart_toEndOf="@+id/tv_degrees"
-        app:layout_constraintTop_toTopOf="@+id/button_current_location"
-        app:layout_constraintVertical_bias="0.0" />
+            <ImageView
+                android:id="@+id/iv_weather_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="37dp"
+                android:layout_marginLeft="37dp"
+                android:layout_marginTop="114dp"
+                android:layout_marginBottom="114dp"
+                android:background="@android:color/holo_blue_bright"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_temp_min"
+                app:layout_constraintStart_toEndOf="@+id/tv_degrees"
+                app:layout_constraintTop_toBottomOf="@+id/button_current_location" />
 
-    <TextView
-        android:id="@+id/tv_last_updated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+            <TextView
+                android:id="@+id/tv_last_updated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="87dp"
+                android:layout_marginBottom="89dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginBottom="43dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_temp"
-        app:layout_constraintStart_toEndOf="@+id/button_current_location" />
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginBottom="43dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                android:textSize="35sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_temp"
+                app:layout_constraintStart_toEndOf="@+id/button_current_location" />
 
-    <TextView
-        android:id="@+id/tv_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="8dp"
-        android:text="--"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_temp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="16dp"
+                android:text="--"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_temp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
 
-    <ImageButton
-        android:id="@+id/button_current_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="6dp"
-        android:background="@drawable/ic_location_on_black_32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_location"
-        app:layout_constraintStart_toStartOf="parent" />
+            <ImageButton
+                android:id="@+id/button_current_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/ic_location_on_black_32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_location"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <!--    <TextView
+            <!--    <TextView
         android:id="@+id/tv_location_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -206,6 +185,32 @@
         android:text="LocationDetails"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />-->
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="108dp"
+                android:layout_marginLeft="108dp"
+                android:layout_marginTop="140dp"
+                android:background="@android:color/holo_blue_bright"
+                android:text="test bottom text for scroll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp_max" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

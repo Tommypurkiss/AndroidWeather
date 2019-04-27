@@ -8,18 +8,13 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -100,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+/*        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
         tvTemperature = findViewById(R.id.tv_temp);
         tvLocation = findViewById(R.id.tv_location);
@@ -110,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         //tvLocDetails = findViewById(R.id.tv_location_details);
         mSearchText = findViewById(R.id.et_search);
         tvLastUpdated = findViewById(R.id.tv_last_updated);
-        tvTempIcon = findViewById(R.id.iv_temp_icon);
+        //tvTempIcon = findViewById(R.id.iv_temp_icon);
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
 
@@ -120,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+
+        //keeps the keyboard closed on app opening - was previously opening automatically?
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 /*        Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
@@ -142,17 +140,19 @@ public class MainActivity extends AppCompatActivity {
         /* -------------------------------------------------------- */
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+/*        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
 
+        //TODO FIX REFRESH
         //pulling down the screen refreshes the weather data
+/*
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -160,9 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
                 refreshData();
 
-                pullToRefresh.setRefreshing(true); // keep on false to keep refreshing?
+                pullToRefresh.setRefreshing(false); // keep on false to keep refreshing?
             }
         });
+*/
 
         lastUpdated();
 
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public boolean isServiceOK() {
         Log.d(TAG, "isServiceOK: checking google services version");
@@ -281,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     public void tempUnits() {
 
         /* TODO
-        sudo
+        pseudo
 
         if temp unit button? == c value {
 
@@ -328,8 +329,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject main = jsonObject.getJSONObject("main");
 
                     //weather array inside list array
-                    JSONArray jsonArray1 = jsonObject.getJSONArray("weather");
-                    JSONObject jsonObject1 = jsonArray1.getJSONObject(0);
+                    JSONArray jsaWeather = jsonObject.getJSONArray("weather");
+                    JSONObject jsoWeather = jsaWeather.getJSONObject(0);
 
                     //main get string calls temp
                     String temp = main.getString("temp");
@@ -342,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
                     tvLocation.setText(city);
 
                     //json object1 get string calls description from array
-                    String desc = jsonObject1.getString("description");
+                    String desc = jsoWeather.getString("description");
                     tvDescription.setText(desc);
 
                 } catch (JSONException e) {
@@ -417,8 +418,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     //weather details description
-                    JSONArray weather = response.getJSONArray("weather");
-                    JSONObject jsoWeather = weather.getJSONObject(0);
+                    JSONArray jsaWeather = response.getJSONArray("weather");
+                    JSONObject jsoWeather = jsaWeather.getJSONObject(0);
 
                     //description
                     String description = jsoWeather.getString("description");
@@ -437,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    tvTempIcon.setText(weatherIcon);
+                    //tvTempIcon.setText(weatherIcon);
 
                     //temp
                     JSONObject main = response.getJSONObject("main");
@@ -549,7 +550,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "double value of: " + lat + lon);
 
 
-                            //TODO MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device location first
+                            //MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device location first
                             getWeatherByDeviceLocation();
 
 
