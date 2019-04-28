@@ -1,7 +1,6 @@
 package com.tommypurkissdev.weather;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,8 +27,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,10 +55,12 @@ public class MainActivity extends AppCompatActivity {
     //public TextView tvLocDetails;
     public EditText mSearchText;
     public TextView tvLastUpdated;
-    public TextView tvTempIcon;
+    //public TextView tvTempIcon;
     public TextView tvTempMin;
     public TextView tvTempMax;
 
+    public ImageButton ibRefresh;
+    public ImageButton ibSettings;
     public ImageView imageView;
 
     public RequestQueue mRequestQueue;
@@ -78,11 +77,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     public static final String API_KEY = "7b35bff27c44e02a0ed4347c65c2ffa8"; //openweathermap api key
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
-    public static final int ERROR_DIALOG_REQUEST = 9001;
-
-    //string
-    //public static String lat;
-    //public static String lon;
 
     //double
     public static double lat;
@@ -95,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
 
         tvTemperature = findViewById(R.id.tv_temp);
         tvLocation = findViewById(R.id.tv_location);
@@ -108,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         //tvTempIcon = findViewById(R.id.iv_temp_icon);
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
+        ibSettings = findViewById(R.id.ib_settings);
+        ibRefresh = findViewById(R.id.ib_refresh);
+
 
         imageView = findViewById(R.id.iv_weather_icon);
 
@@ -119,51 +114,17 @@ public class MainActivity extends AppCompatActivity {
         //keeps the keyboard closed on app opening - was previously opening automatically?
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-/*        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);*/
-
 
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
 
         getLocationPermission();
         getDeviceLocation();
-        isServiceOK();
-        //OnCreate loads up weather data
-        //getWeather();
 
         //loads the device current location weather data even after app has closed and open again because permission is true
         loadDataPermissionTrue();
 
         /* -------------------------------------------------------- */
 
-
-/*        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-
-        //TODO FIX REFRESH
-        //pulling down the screen refreshes the weather data
-/*
-        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                refreshData();
-
-                pullToRefresh.setRefreshing(false); // keep on false to keep refreshing?
-            }
-        });
-*/
 
         lastUpdated();
 
@@ -172,56 +133,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getDeviceLocation(); //WORKS - gets device location and weather data
                 Log.d(TAG, "Location Button: " + buttonCurrentLocation);
-                Toast.makeText(MainActivity.this, "Current Location Weather", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Current Location WeatherActivity", Toast.LENGTH_SHORT).show();
             }
         });
 
+        ibRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshActivity();
+            }
+        });
 
+        ibSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // intent to settings activity
+            }
+        });
 
     }
+    // END OF ON CREATE
 
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    public boolean isServiceOK() {
-        Log.d(TAG, "isServiceOK: checking google services version");
-
-        int available = GoogleApiAvailability.getInstance()
-                .isGooglePlayServicesAvailable(MainActivity.this);
-
-        if (available == ConnectionResult.SUCCESS) {
-            Log.d(TAG, "isServiceOK: Google Play Services is working");
-            return true;
-        }
-        else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Log.d(TAG, "isServiceOK: an error occured but can be fixed");
-            Dialog dialog = GoogleApiAvailability.getInstance()
-                    .getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
-            dialog.show();
-        } else {
-            Toast.makeText(this, "Cant make request", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
 
 
     //handles the searching for cities
@@ -245,21 +180,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    //calls get data and shows a toast message
-    private void refreshData() {
-        //getWeather();
+    private void refreshActivity() {
 
         //TODO - fix reloading animation
         finish();
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
-
-
-
-        //TODO change toast text later on
-        Toast.makeText(this, "Refreshed Weather Data Complete", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -304,10 +231,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     // works
     /* -------------- WEATHER LONDON API KEY SAMPLE -------------- */
-
 
     //weather api calls updated every 10 minutes from openweather
     public void getWeather() {
@@ -346,6 +271,9 @@ public class MainActivity extends AppCompatActivity {
                     String desc = jsoWeather.getString("description");
                     tvDescription.setText(desc);
 
+                    //TODO GET MIN MAX FOR THIS
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -356,8 +284,10 @@ public class MainActivity extends AppCompatActivity {
                 error.printStackTrace();
             }
         });
+
         mRequestQueue.add(request);
     }
+
 
 
 
@@ -391,8 +321,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
     /* -------------- WEATHER BY DEVICE LOCATION -------------- */
@@ -437,9 +365,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-
-                    //tvTempIcon.setText(weatherIcon);
-
                     //temp
                     JSONObject main = response.getJSONObject("main");
                     String temperature = main.getString("temp");
@@ -472,6 +397,14 @@ public class MainActivity extends AppCompatActivity {
         });
         mRequestQueue.add(jsonObjectRequest);
     }
+
+
+
+
+
+
+
+
 
 
     /* -------------- LOCATION -------------- */
@@ -545,6 +478,7 @@ public class MainActivity extends AppCompatActivity {
                             //MARK - getWeatherByDeviceLocation() now works because it is taking the lat and lon from searching device location first
                             getWeatherByDeviceLocation();
 
+
                         } else {
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(MainActivity.this, "Unable to get current location", Toast.LENGTH_SHORT).show();
@@ -587,47 +521,34 @@ public class MainActivity extends AppCompatActivity {
 
         mLocationPermissionGranted = false;
 
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionGranted = false;
-                            getWeather(); // works as a placeholder if the permissions are denied
-                            //TODO need to test turning permissions back on if current location weather will show
-                            return;
-                        }
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+                for (int grantResult : grantResults) {
+                    if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                        mLocationPermissionGranted = false;
+
+                        getWeather(); // works as a placeholder if the permissions are denied
+                        //TODO need to test turning permissions back on if current location weather will show
+                        return;
                     }
-                    mLocationPermissionGranted = true;
-                    //once permission is granted it will get the device location weather
-
-                    //getWeather(); //placeholder
-                    //getWeatherByDeviceLocation();
-
-                    //TODO MARK - getDeviceLocation() now works and shows current device location weather because its called after permissions are allowed
-                    getDeviceLocation();
-
                 }
+                mLocationPermissionGranted = true;
+                //once permission is granted it will get the device location weather
 
-
-
+                //MARK - getDeviceLocation() now works and shows current device location weather because its called after permissions are allowed
+                getDeviceLocation();
 
             }
         }
-
     }
 
 
     //once the permission is true to get device location weather this is called in oncreate method and loads the current weather
     public void loadDataPermissionTrue() {
 
-        // TODO look into this 'mLocationPermissionGranted == true' can be simplified to 'mLocationPermissionGranted'
-        if (mLocationPermissionGranted == true) {
-            //getWeather(); //placeholder
-
+        if (mLocationPermissionGranted) {
 
             getDeviceLocation();
-
 
         }
     }
@@ -639,10 +560,5 @@ public class MainActivity extends AppCompatActivity {
 /* MARK: - SPARE CODE
 
 
-//reload activity
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
 
  */

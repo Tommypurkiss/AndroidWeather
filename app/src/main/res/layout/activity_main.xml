@@ -5,22 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--TODO TOOLBAR -->
-    <!--    <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.AppBarLayout>-->
-
-
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="411dp"
@@ -31,6 +15,19 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
+
+        <ImageButton
+            android:id="@+id/ib_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@drawable/ic_settings_black_32dp"
+            android:background="#fff"
+            android:layout_centerVertical="true"
+
+            />
+
         <ImageView
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
@@ -38,7 +35,10 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_search_black_32dp" />
+            android:src="@drawable/ic_search_black_32dp"
+            android:layout_toEndOf="@+id/ib_settings"
+            android:layout_toRightOf="@+id/ib_settings" />
+
 
         <EditText
             android:id="@+id/et_search"
@@ -56,27 +56,6 @@
             android:textSize="15sp" />
 
     </RelativeLayout>
-
     <include layout="@layout/content_main" />
-
-    <!--TODO CHECK THIS SWIPE TO REFRESH - TURN INTO SMALL BUTTON-->
-
-    <!--    <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/pullToRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-
-        </android.support.v4.widget.SwipeRefreshLayout>-->
-
-
-    <!--    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </android.support.design.widget.CoordinatorLayout>
