@@ -543,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //once the permission is true to get device location weather this is called in oncreate method and loads the current weather
+    //once the permission is true to get device location weather this is called in oncreate method and loads the current weather when the app is closed and starts up again
     public void loadDataPermissionTrue() {
 
         if (mLocationPermissionGranted) {

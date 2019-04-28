@@ -8,13 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     public static final int ERROR_DIALOG_REQUEST = 9001;
     public final static String TAG = "SplashScreenActivity";
+
+
+    public RequestQueue mRequestQueue;
+
+    public Boolean mLocationPermissionGranted = false;
+    public FusedLocationProviderClient mFusedLocationClient;
 
 
     @Override
@@ -47,7 +55,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Log.d(TAG, "isServiceOK: Google Play Services is working");
             return true;
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Log.d(TAG, "isServiceOK: an error occured but can be fixed");
+            Log.d(TAG, "isServiceOK: an error occurred but can be fixed");
             Dialog dialog = GoogleApiAvailability.getInstance()
                     .getErrorDialog(SplashScreenActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
