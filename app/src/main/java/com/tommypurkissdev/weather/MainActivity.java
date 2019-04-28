@@ -1,6 +1,7 @@
 package com.tommypurkissdev.weather;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -148,15 +149,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // intent to settings activity
+
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+
             }
         });
 
     }
     // END OF ON CREATE
-
-
-
-
 
 
     //handles the searching for cities

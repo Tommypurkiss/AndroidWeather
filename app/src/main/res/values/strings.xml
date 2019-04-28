@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="loading_placeholder">--</string>
+    <string name="degrees_symbol">°</string>
+    <string name="click_here_to_get_device_location_weather">Click here to get device location weather</string>
+    <string name="displays_weather_icon">Displays weather icon</string>
+    <string name="click_here_to_refresh">Click here to refresh</string>
 </resources>

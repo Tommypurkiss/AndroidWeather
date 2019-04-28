@@ -25,7 +25,6 @@
             android:src="@drawable/ic_settings_black_32dp"
             android:background="#fff"
             android:layout_centerVertical="true"
-
             />
 
         <ImageView
