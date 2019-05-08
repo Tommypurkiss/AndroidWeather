@@ -207,25 +207,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void tempUnits() {
-
-        /* TODO
-        pseudo
-
-        if temp unit button? == c value {
-
-        do the kelvin temp value - 273.15
-        } if else? temp == f value {
-        do the kelvin temp value * 9/(over or divided?)5 - 459.67
-
-        } else {
-
-        show kelvin
-        }
-
-
-         */
-    }
 
 
 
@@ -457,20 +438,14 @@ public class MainActivity extends AppCompatActivity {
 
                             Log.d(TAG, "current Location is " + currentLocation);
 
-                            //Double.toString(currentLocation.getLatitude());
-                            //Double.toString(currentLocation.getLongitude());
-                            //LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            //tvLocDetails.setText(latLng.toString());
-                            //store lat and lon in their respective vars as string
-                            //lat = String.valueOf(currentLocation.getLatitude());
-                            //lon = String.valueOf(currentLocation.getLongitude());
-                            //Log.d(TAG, "string value of: " + lat + lon);
-                            //store lat and lon in their respective vars as double
-
                             //checks if not null first then returns lat lon value
+
                             if (currentLocation != null) {
                                 lat = currentLocation.getLatitude();
                                 lon = currentLocation.getLongitude();
+
+                            } else {
+                                Toast.makeText(MainActivity.this, "Current Location Not Found", Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -538,6 +513,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //MARK - getDeviceLocation() now works and shows current device location weather because its called after permissions are allowed
                 getDeviceLocation();
+                Log.d(TAG, "onRequestPermissionsResult: ");
 
             }
         }
@@ -550,7 +526,7 @@ public class MainActivity extends AppCompatActivity {
         if (mLocationPermissionGranted) {
 
             getDeviceLocation();
-
+            Log.d(TAG, "loadDataPermissionTrue: " + mLocationPermissionGranted);
         }
     }
 
