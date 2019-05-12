@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //VARS
-    public TextView tvTemperature;
+    public static TextView tvTemperature;
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
@@ -59,6 +59,17 @@ public class MainActivity extends AppCompatActivity {
     //public TextView tvTempIcon;
     public TextView tvTempMin;
     public TextView tvTempMax;
+
+    public TextView tvDayOne;
+    public ImageView ivDayOne;
+    public TextView tvDayOneTempMin;
+    public TextView tvDayOneTempMax;
+
+    public TextView tvDayTwo;
+    public TextView tvDayThree;
+    public TextView tvDayFour;
+    public TextView tvDayFive;
+
 
     public ImageButton ibRefresh;
     public ImageButton ibSettings;
@@ -103,6 +114,16 @@ public class MainActivity extends AppCompatActivity {
         tvTempMax = findViewById(R.id.tv_temp_max);
         ibSettings = findViewById(R.id.ib_settings);
         ibRefresh = findViewById(R.id.ib_refresh);
+        tvDayOne = findViewById(R.id.tv_day_one);
+        ivDayOne = findViewById(R.id.iv_day_one);
+        tvDayOneTempMin = findViewById(R.id.tv_day_one_temp_min);
+        tvDayOneTempMax = findViewById(R.id.tv_day_one_temp_max);
+
+        tvDayTwo = findViewById(R.id.tv_day_two);
+        tvDayThree = findViewById(R.id.tv_day_three);
+        tvDayFour = findViewById(R.id.tv_day_four);
+        tvDayFive = findViewById(R.id.tv_day_five);
+
 
 
         imageView = findViewById(R.id.iv_weather_icon);
@@ -271,13 +292,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
     /* -------------- WEATHER BY LAT LONG -------------- */
 
     public void getWeatherByLatLng() {
@@ -289,9 +303,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "string url latlon total: " + urlAPILatLong);
 
     }
-
-
-
 
 
     /* -------------- WEATHER BY CITY NAME -------------- */
@@ -378,10 +389,135 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mRequestQueue.add(jsonObjectRequest);
+
+        getForecastWeatherByDeviceLocation();
+
     }
 
 
 
+
+
+    /* -------------- 5 DAY WEATHER BY DEVICE LOCATION -------------- */
+
+    public void getForecastWeatherByDeviceLocation() {
+
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+
+        Log.d(TAG, "getForecastWeatherByDeviceLocation: " + urlAPILatLong);
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                //String[] cityForecast = new String[0];
+                ArrayList<String> cityForecast;
+
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("list");
+
+                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    Log.d(TAG, "onResponse: " + jsonArray); // shows json
+
+
+                    for (int i = 0; i < response.length(); i += 8) {
+
+                        // day one
+                        JSONObject jso0 = jsonArray.getJSONObject(0);
+
+                        //date/day
+                        //String day0 = jso0.getString("dt_txt");
+                        //tvDayOne.setText(day0);
+
+
+                        //weather icon
+                        JSONArray jsaWeather0 = jso0.getJSONArray("weather");
+                        JSONObject jsoWeather0 = jsaWeather0.getJSONObject(0);
+
+                        String weatherIcon = jsoWeather0.getString("icon");
+
+                        //TODO finish off icons
+                        if (weatherIcon.contentEquals("50d")) {
+                            ivDayOne.setImageResource(R.drawable.group_2_big);
+                        }
+                        if (weatherIcon.contentEquals("10n")) {
+                            ivDayOne.setImageResource(R.drawable.rain_cloud);
+                        }
+
+                        //temperature
+                        JSONObject jsoMain0 = jso0.getJSONObject("main");
+                        String tempMin0 = jsoMain0.getString("temp_min");
+                        String tempMin0Format = String.valueOf(tempMin0).split("\\.")[0];
+                        tvDayOneTempMin.setText(tempMin0Format);
+
+                        String tempMax0 = jsoMain0.getString("temp_max");
+                        String tempMax0Format = String.valueOf(tempMax0).split("\\.")[0];
+                        tvDayOneTempMax.setText(tempMax0Format);
+
+
+                    }
+
+
+                    // day two
+                    JSONObject jso1 = jsonArray.getJSONObject(8);
+
+                    JSONObject jsoMain1 = jso1.getJSONObject("main");
+
+                    String temp1 = jsoMain1.getString("temp");
+                    tvDayTwo.setText(temp1);
+
+                    Log.d(TAG, "onResponse: " + jso1);
+
+
+                    // day three
+                    JSONObject jso2 = jsonArray.getJSONObject(16);
+
+                    JSONObject jsoMain2 = jso2.getJSONObject("main");
+
+                    String temp2 = jsoMain2.getString("temp");
+
+                    tvDayThree.setText(temp2);
+
+
+                    // day four
+
+                    JSONObject jso3 = jsonArray.getJSONObject(24);
+
+                    JSONObject jsoMain3 = jso3.getJSONObject("main");
+
+                    String temp3 = jsoMain3.getString("temp");
+
+                    tvDayFour.setText(temp3);
+
+
+                    // day five
+
+                    JSONObject jso4 = jsonArray.getJSONObject(32);
+
+                    JSONObject jsoMain4 = jso4.getJSONObject("main");
+
+                    String temp4 = jsoMain4.getString("temp");
+
+                    tvDayFive.setText(temp4);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        mRequestQueue.add(jsonObjectRequest);
+
+    }
 
 
 
@@ -445,6 +581,7 @@ public class MainActivity extends AppCompatActivity {
                                 lon = currentLocation.getLongitude();
 
                             } else {
+                                getWeather();
                                 Toast.makeText(MainActivity.this, "Current Location Not Found", Toast.LENGTH_SHORT).show();
                             }
 
