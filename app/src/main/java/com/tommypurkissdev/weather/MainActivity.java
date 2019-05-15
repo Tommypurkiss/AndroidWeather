@@ -53,27 +53,58 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
-    //public TextView tvLocDetails;
     public EditText mSearchText;
     public TextView tvLastUpdated;
-    //public TextView tvTempIcon;
     public TextView tvTempMin;
     public TextView tvTempMax;
 
-    public TextView tvDayOne;
-    public ImageView ivDayOne;
-    public TextView tvDayOneTempMin;
-    public TextView tvDayOneTempMax;
+    // forecast 1
+    public TextView tvForecastOneTitle;
+    public ImageView ivForecastOne;
+    public TextView tvForecastOneTemp;
 
-    public TextView tvDayTwo;
-    public TextView tvDayThree;
-    public TextView tvDayFour;
-    public TextView tvDayFive;
+    // forecast 2
+    public TextView tvForecastTwoTitle;
+    public ImageView ivForecastTwo;
+    public TextView tvForecastTwoTemp;
+
+    // forecast 3
+    public TextView tvForecastThreeTitle;
+    public ImageView ivForecastThree;
+    public TextView tvForecastThreeTemp;
+
+    // forecast 4
+    public TextView tvForecastFourTitle;
+    public ImageView ivForecastFour;
+    public TextView tvForecastFourTemp;
+
+    // forecast 5
+    public TextView tvForecastFiveTitle;
+    public ImageView ivForecastFive;
+    public TextView tvForecastFiveTemp;
+
+    // forecast 6
+    public TextView tvForecastSixTitle;
+    public ImageView ivForecastSix;
+    public TextView tvForecastSixTemp;
+
+    // forecast 7
+    public TextView tvForecastSevenTitle;
+    public ImageView ivForecastSeven;
+    public TextView tvForecastSevenTemp;
+
+    // forecast 8
+    public TextView tvForecastEightTitle;
+    public ImageView ivForecastEight;
+    public TextView tvForecastEightTemp;
+
+
 
 
     public ImageButton ibRefresh;
     public ImageButton ibSettings;
-    public ImageView imageView;
+
+    public ImageView ivWeatherIcon;
 
     public RequestQueue mRequestQueue;
 
@@ -102,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         tvTemperature = findViewById(R.id.tv_temp);
         tvLocation = findViewById(R.id.tv_location);
         tvDescription = findViewById(R.id.tv_description);
@@ -114,19 +146,50 @@ public class MainActivity extends AppCompatActivity {
         tvTempMax = findViewById(R.id.tv_temp_max);
         ibSettings = findViewById(R.id.ib_settings);
         ibRefresh = findViewById(R.id.ib_refresh);
-        tvDayOne = findViewById(R.id.tv_day_one);
-        ivDayOne = findViewById(R.id.iv_day_one);
-        tvDayOneTempMin = findViewById(R.id.tv_day_one_temp_min);
-        tvDayOneTempMax = findViewById(R.id.tv_day_one_temp_max);
 
-        tvDayTwo = findViewById(R.id.tv_day_two);
-        tvDayThree = findViewById(R.id.tv_day_three);
-        tvDayFour = findViewById(R.id.tv_day_four);
-        tvDayFive = findViewById(R.id.tv_day_five);
+        //forecast 1
+        tvForecastOneTitle = findViewById(R.id.tv_forecast_one_title);
+        ivForecastOne = findViewById(R.id.iv_forecast_one);
+        tvForecastOneTemp = findViewById(R.id.tv_forecast_one_temp);
+
+        //forecast 2
+        tvForecastTwoTitle = findViewById(R.id.tv_forecast_two_title);
+        ivForecastTwo = findViewById(R.id.iv_forecast_two);
+        tvForecastTwoTemp = findViewById(R.id.tv_forecast_two_temp);
+
+        //forecast 3
+        tvForecastThreeTitle = findViewById(R.id.tv_forecast_three_title);
+        ivForecastThree = findViewById(R.id.iv_forecast_three);
+        tvForecastThreeTemp = findViewById(R.id.tv_forecast_three_temp);
+
+        //forecast 4
+        tvForecastFourTitle = findViewById(R.id.tv_forecast_four_title);
+        ivForecastFour = findViewById(R.id.iv_forecast_four);
+        tvForecastFourTemp = findViewById(R.id.tv_forecast_four_temp);
+
+        //forecast 5
+        tvForecastFiveTitle = findViewById(R.id.tv_forecast_five_title);
+        ivForecastFive = findViewById(R.id.iv_forecast_five);
+        tvForecastFiveTemp = findViewById(R.id.tv_forecast_five_temp);
+
+        //forecast 6
+        tvForecastSixTitle = findViewById(R.id.tv_forecast_six_title);
+        ivForecastSix = findViewById(R.id.iv_forecast_six);
+        tvForecastSixTemp = findViewById(R.id.tv_forecast_six_temp);
+
+        //forecast 7
+        tvForecastSevenTitle = findViewById(R.id.tv_forecast_seven_title);
+        ivForecastSeven = findViewById(R.id.iv_forecast_seven);
+        tvForecastSevenTemp = findViewById(R.id.tv_forecast_seven_temp);
+
+        //forecast 8
+        tvForecastEightTitle = findViewById(R.id.tv_forecast_eight_title);
+        ivForecastEight = findViewById(R.id.iv_forecast_eight);
+        tvForecastEightTemp = findViewById(R.id.tv_forecast_eight_temp);
 
 
+        ivWeatherIcon = findViewById(R.id.iv_weather_icon);
 
-        imageView = findViewById(R.id.iv_weather_icon);
 
 
         mRequestQueue = Volley.newRequestQueue(this);
@@ -143,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         getDeviceLocation();
 
         //loads the device current location weather data even after app has closed and open again because permission is true
-        loadDataPermissionTrue();
+        //loadDataPermissionTrue();
 
         /* -------------------------------------------------------- */
 
@@ -351,10 +414,10 @@ public class MainActivity extends AppCompatActivity {
 
                     //TODO finish off icons
                     if (weatherIcon.contentEquals("50d")) {
-                        imageView.setImageResource(R.drawable.group_2_big);
+                        ivWeatherIcon.setImageResource(R.drawable.group_2_big);
                     }
                     if (weatherIcon.contentEquals("10d")) {
-                        imageView.setImageResource(R.drawable.rain_cloud);
+                        ivWeatherIcon.setImageResource(R.drawable.rain_cloud);
 
                     }
 
@@ -411,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
 
                 //String[] cityForecast = new String[0];
-                ArrayList<String> cityForecast;
+                //ArrayList<String> cityForecast;
 
 
                 try {
@@ -421,86 +484,248 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: " + jsonArray); // shows json
 
 
-                    for (int i = 0; i < response.length(); i += 8) {
+                    // forecast one
 
-                        // day one
                         JSONObject jso0 = jsonArray.getJSONObject(0);
 
                         //date/day
-                        //String day0 = jso0.getString("dt_txt");
-                        //tvDayOne.setText(day0);
+                    String date0 = jso0.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day0" + date0);
+                    tvForecastOneTitle.setText(date0);
 
 
                         //weather icon
                         JSONArray jsaWeather0 = jso0.getJSONArray("weather");
                         JSONObject jsoWeather0 = jsaWeather0.getJSONObject(0);
 
-                        String weatherIcon = jsoWeather0.getString("icon");
+                    String weatherIcon0 = jsoWeather0.getString("icon");
 
                         //TODO finish off icons
-                        if (weatherIcon.contentEquals("50d")) {
-                            ivDayOne.setImageResource(R.drawable.group_2_big);
+                    if (weatherIcon0.contentEquals("50d")) {
+                        ivForecastOne.setImageResource(R.drawable.group_2_big);
                         }
-                        if (weatherIcon.contentEquals("10n")) {
-                            ivDayOne.setImageResource(R.drawable.rain_cloud);
+                    if (weatherIcon0.contentEquals("10n")) {
+                        ivForecastOne.setImageResource(R.drawable.rain_cloud);
                         }
 
                         //temperature
                         JSONObject jsoMain0 = jso0.getJSONObject("main");
-                        String tempMin0 = jsoMain0.getString("temp_min");
-                        String tempMin0Format = String.valueOf(tempMin0).split("\\.")[0];
-                        tvDayOneTempMin.setText(tempMin0Format);
-
-                        String tempMax0 = jsoMain0.getString("temp_max");
-                        String tempMax0Format = String.valueOf(tempMax0).split("\\.")[0];
-                        tvDayOneTempMax.setText(tempMax0Format);
+                    String temp0 = jsoMain0.getString("temp");
+                    String temp0Format = String.valueOf(temp0).split("\\.")[0];
+                    tvForecastOneTemp.setText(temp0Format);
 
 
+                    // forecast two
+
+                    JSONObject jso1 = jsonArray.getJSONObject(1);
+
+                    //date/day
+                    String date1 = jso1.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day0" + date1);
+                    tvForecastTwoTitle.setText(date1);
+
+                    //weather icon
+                    JSONArray jsaWeather1 = jso1.getJSONArray("weather");
+                    JSONObject jsoWeather1 = jsaWeather1.getJSONObject(0);
+
+                    String weatherIcon1 = jsoWeather1.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon1.contentEquals("50d")) {
+                        ivForecastTwo.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon1.contentEquals("10n")) {
+                        ivForecastTwo.setImageResource(R.drawable.rain_cloud);
                     }
 
 
-                    // day two
-                    JSONObject jso1 = jsonArray.getJSONObject(8);
-
+                    // temp
                     JSONObject jsoMain1 = jso1.getJSONObject("main");
-
                     String temp1 = jsoMain1.getString("temp");
-                    tvDayTwo.setText(temp1);
+                    String temp1Format = String.valueOf(temp1).split("\\.")[0];
+                    tvForecastTwoTemp.setText(temp1Format);
 
                     Log.d(TAG, "onResponse: " + jso1);
 
 
-                    // day three
-                    JSONObject jso2 = jsonArray.getJSONObject(16);
+                    // forecast three
 
+                    JSONObject jso2 = jsonArray.getJSONObject(2);
+
+                    //date/day
+                    String date2 = jso2.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day0" + date2);
+                    tvForecastThreeTitle.setText(date2);
+
+                    //weather icon
+                    JSONArray jsaWeather2 = jso2.getJSONArray("weather");
+                    JSONObject jsoWeather2 = jsaWeather2.getJSONObject(0);
+
+                    String weatherIcon2 = jsoWeather2.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon2.contentEquals("50d")) {
+                        ivForecastThree.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon2.contentEquals("10n")) {
+                        ivForecastThree.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
                     JSONObject jsoMain2 = jso2.getJSONObject("main");
-
                     String temp2 = jsoMain2.getString("temp");
+                    String temp2Format = String.valueOf(temp2).split("\\.")[0];
+                    tvForecastThreeTemp.setText(temp2Format);
 
-                    tvDayThree.setText(temp2);
 
+                    // forecast four
 
-                    // day four
+                    JSONObject jso3 = jsonArray.getJSONObject(3);
 
-                    JSONObject jso3 = jsonArray.getJSONObject(24);
+                    //date/day
+                    String date3 = jso3.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day3" + date3);
+                    tvForecastFourTitle.setText(date3);
 
+                    //weather icon
+                    JSONArray jsaWeather3 = jso3.getJSONArray("weather");
+                    JSONObject jsoWeather3 = jsaWeather3.getJSONObject(0);
+
+                    String weatherIcon3 = jsoWeather3.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon3.contentEquals("50d")) {
+                        ivForecastFour.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon3.contentEquals("10n")) {
+                        ivForecastFour.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
                     JSONObject jsoMain3 = jso3.getJSONObject("main");
-
                     String temp3 = jsoMain3.getString("temp");
+                    String temp3Format = String.valueOf(temp3).split("\\.")[0];
+                    tvForecastFourTemp.setText(temp3Format);
 
-                    tvDayFour.setText(temp3);
 
+                    // forecast five
 
-                    // day five
+                    JSONObject jso4 = jsonArray.getJSONObject(4);
 
-                    JSONObject jso4 = jsonArray.getJSONObject(32);
+                    //date/day
+                    String date4 = jso4.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day4" + date4);
+                    tvForecastFiveTitle.setText(date4);
 
+                    //weather icon
+                    JSONArray jsaWeather4 = jso4.getJSONArray("weather");
+                    JSONObject jsoWeather4 = jsaWeather4.getJSONObject(0);
+
+                    String weatherIcon4 = jsoWeather4.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon4.contentEquals("50d")) {
+                        ivForecastFive.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon4.contentEquals("10n")) {
+                        ivForecastFive.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
                     JSONObject jsoMain4 = jso4.getJSONObject("main");
-
                     String temp4 = jsoMain4.getString("temp");
+                    String temp4Format = String.valueOf(temp4).split("\\.")[0];
+                    tvForecastFiveTemp.setText(temp4Format);
 
-                    tvDayFive.setText(temp4);
 
+                    // forecast six
+
+                    JSONObject jso5 = jsonArray.getJSONObject(5);
+
+                    //date/day
+                    String date5 = jso5.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day5" + date5);
+                    tvForecastSixTitle.setText(date5);
+
+                    //weather icon
+                    JSONArray jsaWeather5 = jso5.getJSONArray("weather");
+                    JSONObject jsoWeather5 = jsaWeather5.getJSONObject(0);
+
+                    String weatherIcon5 = jsoWeather5.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon5.contentEquals("50d")) {
+                        ivForecastSix.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon5.contentEquals("10n")) {
+                        ivForecastSix.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
+                    JSONObject jsoMain5 = jso5.getJSONObject("main");
+                    String temp5 = jsoMain5.getString("temp");
+                    String temp5Format = String.valueOf(temp5).split("\\.")[0];
+                    tvForecastSixTemp.setText(temp5Format);
+
+
+                    // forecast seven
+
+                    JSONObject jso6 = jsonArray.getJSONObject(6);
+
+                    //date/day
+                    String date6 = jso6.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day6" + date6);
+                    tvForecastSevenTitle.setText(date6);
+
+                    //weather icon
+                    JSONArray jsaWeather6 = jso6.getJSONArray("weather");
+                    JSONObject jsoWeather6 = jsaWeather6.getJSONObject(0);
+
+                    String weatherIcon6 = jsoWeather6.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon6.contentEquals("50d")) {
+                        ivForecastSeven.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon6.contentEquals("10n")) {
+                        ivForecastSeven.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
+                    JSONObject jsoMain6 = jso6.getJSONObject("main");
+                    String temp6 = jsoMain6.getString("temp");
+                    String temp6Format = String.valueOf(temp6).split("\\.")[0];
+                    tvForecastSevenTemp.setText(temp6Format);
+
+
+                    // forecast eight
+
+                    JSONObject jso7 = jsonArray.getJSONObject(7);
+
+                    //date/day
+                    String date7 = jso7.getString("dt_txt");
+                    Log.d(TAG, "onResponse: day7" + date7);
+                    tvForecastEightTitle.setText(date7);
+
+                    //weather icon
+                    JSONArray jsaWeather7 = jso7.getJSONArray("weather");
+                    JSONObject jsoWeather7 = jsaWeather7.getJSONObject(0);
+
+                    String weatherIcon7 = jsoWeather7.getString("icon");
+
+                    //TODO finish off icons
+                    if (weatherIcon7.contentEquals("50d")) {
+                        ivForecastEight.setImageResource(R.drawable.group_2_big);
+                    }
+                    if (weatherIcon7.contentEquals("10n")) {
+                        ivForecastEight.setImageResource(R.drawable.rain_cloud);
+                    }
+
+                    // temp
+                    JSONObject jsoMain7 = jso7.getJSONObject("main");
+                    String temp7 = jsoMain7.getString("temp");
+                    String temp7Format = String.valueOf(temp7).split("\\.")[0];
+                    tvForecastEightTemp.setText(temp7Format);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -627,6 +852,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
+        loadDataPermissionTrue();
     }
 
     @Override

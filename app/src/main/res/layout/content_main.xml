@@ -35,10 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="100dp"
-                android:background="@android:color/darker_gray"
+                android:layout_marginTop="80dp"
                 android:gravity="center"
-                android:padding="10sp"
                 android:text="@string/loading_placeholder"
                 android:textColor="@android:color/black"
                 android:textSize="100sp"
@@ -122,10 +120,9 @@
                 android:id="@+id/iv_weather_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="36dp"
-                android:background="@android:color/darker_gray"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/displays_weather_icon"
                 android:foregroundGravity="center"
                 app:layout_constraintStart_toEndOf="@+id/tv_temp"
@@ -215,34 +212,50 @@
             <RelativeLayout
                 android:id="@+id/relative_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@android:color/darker_gray"
+                android:background="@drawable/forecast_background"
+                android:elevation="15dp"
+                android:padding="10dp"
+                app:layout_constraintCircleRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_description">
 
+                <TextView
+                    android:id="@+id/tv_forecast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Forecast"
+                    android:textSize="20sp" />
+
                 <HorizontalScrollView
                     android:id="@+id/horizontal_scroll"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_forecast"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/horizontal_scroll_background">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
 
+                        >
+
+                        <!-- FORECAST 1 -->
                         <android.support.constraint.ConstraintLayout
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:background="@android:color/holo_green_dark">
+                            android:padding="10dp">
 
                             <TextView
-                                android:id="@+id/tv_day_one"
+                                android:id="@+id/tv_forecast_one_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -251,58 +264,48 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
-                                android:background="#fff"
                                 android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
-                                android:id="@+id/iv_day_one"
+                                android:id="@+id/iv_forecast_one"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
-                                android:layout_marginTop="36dp"
+                                android:layout_marginTop="24dp"
                                 android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_one" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_one_title" />
 
                             <TextView
-                                android:id="@+id/tv_day_one_temp_min"
+                                android:id="@+id/tv_forecast_one_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
                                 android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_one"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_one" />
-
-                            <TextView
-                                android:id="@+id/tv_day_one_temp_max"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="12dp"
-                                android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_one"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_one_temp_min" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_one"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_one_title" />
 
 
                         </android.support.constraint.ConstraintLayout>
 
-
+                        <!-- FORECAST 2 -->
                         <android.support.constraint.ConstraintLayout
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:background="@android:color/holo_green_dark">
+                            android:padding="10dp">
 
                             <TextView
-                                android:id="@+id/tv_day_two"
+                                android:id="@+id/tv_forecast_two_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -311,46 +314,48 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
-                                android:background="#fff"
                                 android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
-
                             <ImageView
-                                android:id="@+id/iv_day_two"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="36dp"
+                                android:id="@+id/iv_forecast_two"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
                                 android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_two" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_two_title" />
 
                             <TextView
-                                android:id="@+id/tv_day_two_temp"
+                                android:id="@+id/tv_forecast_two_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="40dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
                                 android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_two"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_two" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_two"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_two_title" />
+
+
                         </android.support.constraint.ConstraintLayout>
 
-
+                        <!-- FORECAST 3 -->
                         <android.support.constraint.ConstraintLayout
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:background="@android:color/holo_green_dark">
+                            android:padding="10dp">
 
                             <TextView
-                                android:id="@+id/tv_day_three"
+                                android:id="@+id/tv_forecast_three_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -359,46 +364,48 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
-                                android:background="#fff"
                                 android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
-                                android:id="@+id/iv_day_three"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="36dp"
+                                android:id="@+id/iv_forecast_three"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
                                 android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_three" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_three_title" />
 
                             <TextView
-                                android:id="@+id/tv_day_three_temp"
+                                android:id="@+id/tv_forecast_three_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="40dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
                                 android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_three"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_three" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_three"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_three_title" />
+
 
                         </android.support.constraint.ConstraintLayout>
 
-
+                        <!-- FORECAST 4 -->
                         <android.support.constraint.ConstraintLayout
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:background="@android:color/holo_green_dark">
+                            android:padding="10dp">
 
                             <TextView
-                                android:id="@+id/tv_day_four"
+                                android:id="@+id/tv_forecast_four_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -407,46 +414,48 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
-                                android:background="#fff"
                                 android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
-                                android:id="@+id/iv_day_four"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="36dp"
+                                android:id="@+id/iv_forecast_four"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
                                 android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_four" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_four_title" />
 
                             <TextView
-                                android:id="@+id/tv_day_four_temp"
+                                android:id="@+id/tv_forecast_four_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="40dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
                                 android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_four"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_four" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_four"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_four_title" />
+
 
                         </android.support.constraint.ConstraintLayout>
 
-
+                        <!-- FORECAST 5 -->
                         <android.support.constraint.ConstraintLayout
-                            android:layout_width="100dp"
+                            android:layout_width="120dp"
                             android:layout_height="match_parent"
-                            android:background="@android:color/holo_green_dark">
+                            android:padding="10dp">
 
                             <TextView
-                                android:id="@+id/tv_day_five"
+                                android:id="@+id/tv_forecast_five_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -455,41 +464,212 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
-                                android:background="#fff"
                                 android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.521"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
-                                android:id="@+id/iv_day_five"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="36dp"
+                                android:id="@+id/iv_forecast_five"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
                                 android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_five" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_five_title" />
 
                             <TextView
-                                android:id="@+id/tv_day_five_temp"
+                                android:id="@+id/tv_forecast_five_temp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginTop="40dp"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
                                 android:text="@string/loading_placeholder"
-                                app:layout_constraintStart_toEndOf="@+id/iv_day_five"
-                                app:layout_constraintTop_toBottomOf="@+id/tv_day_five" />
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_five"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_five_title" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <!-- FORECAST 6 -->
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_forecast_six_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="1"
+                                android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_forecast_six"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
+                                android:background="@android:color/darker_gray"
+                                android:contentDescription="@string/displays_weather_icon"
+                                android:foregroundGravity="center"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_six_title" />
+
+                            <TextView
+                                android:id="@+id/tv_forecast_six_temp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
+                                android:text="@string/loading_placeholder"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_six"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_six_title" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <!-- FORECAST 7 -->
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_forecast_seven_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="1"
+                                android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_forecast_seven"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
+                                android:background="@android:color/darker_gray"
+                                android:contentDescription="@string/displays_weather_icon"
+                                android:foregroundGravity="center"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_seven_title" />
+
+                            <TextView
+                                android:id="@+id/tv_forecast_seven_temp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
+                                android:text="@string/loading_placeholder"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_seven"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_seven_title" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <!-- FORECAST 8 -->
+                        <android.support.constraint.ConstraintLayout
+                            android:layout_width="120dp"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/tv_forecast_eight_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="1"
+                                android:text="@string/loading_placeholder"
+                                android:textAlignment="center"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_forecast_eight"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="24dp"
+                                android:background="@android:color/darker_gray"
+                                android:contentDescription="@string/displays_weather_icon"
+                                android:foregroundGravity="center"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_eight_title" />
+
+                            <TextView
+                                android:id="@+id/tv_forecast_eight_temp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="36dp"
+                                android:text="@string/loading_placeholder"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@+id/iv_forecast_eight"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_forecast_eight_title" />
+
+
                         </android.support.constraint.ConstraintLayout>
 
 
                     </LinearLayout>
                 </HorizontalScrollView>
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_day_forecast"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/horizontal_scroll"
+                    android:layout_marginTop="10dp">
+
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@drawable/horizontal_scroll_background">
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -514,7 +694,7 @@
                 android:layout_marginTop="64dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:background="@android:color/holo_green_dark" />
+                android:background="@android:color/white" />
 
 
         </android.support.constraint.ConstraintLayout>
