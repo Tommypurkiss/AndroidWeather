@@ -1,6 +1,7 @@
 package com.tommypurkissdev.weather;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -16,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvLastUpdated;
     public TextView tvTempMin;
     public TextView tvTempMax;
+
+    public String cityName;
 
     // forecast 1
     public TextView tvForecastOneTitle;
@@ -205,8 +209,12 @@ public class MainActivity extends AppCompatActivity {
         getLocationPermission();
         getDeviceLocation();
 
+        //getWeatherByCityName();
+
         //loads the device current location weather data even after app has closed and open again because permission is true
         //loadDataPermissionTrue();
+
+        init();
 
         /* -------------------------------------------------------- */
 
@@ -226,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 refreshActivity();
+
             }
         });
 
@@ -257,12 +266,23 @@ public class MainActivity extends AppCompatActivity {
                         || event.getAction() == KeyEvent.ACTION_DOWN
                         || event.getAction() == KeyEvent.KEYCODE_ENTER) {
                     // execute searchmethod
-                    geoLocate();
+                    //geoLocate(); // geo locates works and gets the lat and lon but doesnt return clear results eg barcelona returns nothing new or eixample
+
+
+                    //getWeatherByDeviceLocation();
+                    //getForecastWeatherByDeviceLocation();
+
+                    getWeatherByCityName();
+                    //getForecastWeatherByDeviceLocation();
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
                 }
                 return false;
             }
         });
     }
+
 
 
     private void refreshActivity() {
@@ -296,14 +316,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     // works
     /* -------------- WEATHER LONDON API KEY SAMPLE -------------- */
 
     //weather api calls updated every 10 minutes from openweather
     public void getWeather() {
 
-        String url = "https://api.openweathermap.org/data/2.5/find?q=London,uk&units=metric&appid=7b35bff27c44e02a0ed4347c65c2ffa8";
+        String url = "https://api.openweathermap.org/data/2.5/find?q=London,uk&units=metric&appid=API_KEY";
 
         Log.d(TAG, "string url: " + url);
 
@@ -373,10 +392,67 @@ public class MainActivity extends AppCompatActivity {
     public void getWeatherByCityName() {
 
         //TODO - get city name from geo locate and pass it through this url api
-        //String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=7b35bff27c44e02a0ed4347c65c2ffa8";
+
+        cityName = mSearchText.getText().toString();
+
+        String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
+
+        Log.d(TAG, "getWeatherByCityName: cityname searched: " + cityName);
+        Log.d(TAG, "getWeatherByCityName: urlAPI: " + urlAPI);
+
+        /*
+         if city name in search text field = to urlAPI (it contains city name) then get the relevant data according to city data
 
 
+         */
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPI, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONObject jsoCoord = response.getJSONObject("coord");
+
+                    String lonCity = jsoCoord.getString("lon");
+                    String latCity = jsoCoord.getString("lat");
+
+                    lon = Double.valueOf(lonCity);
+                    lat = Double.valueOf(latCity);
+
+                    getForecastWeatherByDeviceLocation();
+
+
+                    Log.d(TAG, "onResponse: lat lon " + lat + lon);
+
+
+                    JSONObject jsoMain = response.getJSONObject("main");
+                    String temp = jsoMain.getString("temp");
+                    String tempFormat = String.valueOf(temp).split("\\.")[0];
+                    tvTemperature.setText(tempFormat);
+
+
+                    String name = response.getString("name");
+                    tvLocation.setText(name);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mRequestQueue.add(jsonObjectRequest);
     }
+
+
+
+
+
 
 
     /* -------------- WEATHER BY DEVICE LOCATION -------------- */
@@ -465,6 +541,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void getForecastWeatherByDeviceLocation() {
 
+        //TODO Get forecast weather from either the device location weather or searched city weather
+
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
         Log.d(TAG, "getForecastWeatherByDeviceLocation: " + urlAPILatLong);
@@ -480,17 +558,17 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
 
-                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
-                    Log.d(TAG, "onResponse: " + jsonArray); // shows json
+/*                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    Log.d(TAG, "onResponse: " + jsonArray); // shows json*/
 
 
                     // forecast one
 
-                        JSONObject jso0 = jsonArray.getJSONObject(0);
+                    JSONObject jso0 = jsonArray.getJSONObject(0);
 
                         //date/day
                     String date0 = jso0.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day0" + date0);
+                    //Log.d(TAG, "onResponse: day0" + date0);
                     tvForecastOneTitle.setText(date0);
 
 
@@ -521,7 +599,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date1 = jso1.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day0" + date1);
+                    //Log.d(TAG, "onResponse: day0" + date1);
                     tvForecastTwoTitle.setText(date1);
 
                     //weather icon
@@ -554,7 +632,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date2 = jso2.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day0" + date2);
+                    //Log.d(TAG, "onResponse: day0" + date2);
                     tvForecastThreeTitle.setText(date2);
 
                     //weather icon
@@ -584,7 +662,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date3 = jso3.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day3" + date3);
+                    //Log.d(TAG, "onResponse: day3" + date3);
                     tvForecastFourTitle.setText(date3);
 
                     //weather icon
@@ -614,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date4 = jso4.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day4" + date4);
+                    //Log.d(TAG, "onResponse: day4" + date4);
                     tvForecastFiveTitle.setText(date4);
 
                     //weather icon
@@ -644,7 +722,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date5 = jso5.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day5" + date5);
+                    //Log.d(TAG, "onResponse: day5" + date5);
                     tvForecastSixTitle.setText(date5);
 
                     //weather icon
@@ -674,7 +752,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date6 = jso6.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day6" + date6);
+                    //Log.d(TAG, "onResponse: day6" + date6);
                     tvForecastSevenTitle.setText(date6);
 
                     //weather icon
@@ -704,7 +782,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //date/day
                     String date7 = jso7.getString("dt_txt");
-                    Log.d(TAG, "onResponse: day7" + date7);
+                    //Log.d(TAG, "onResponse: day7" + date7);
                     tvForecastEightTitle.setText(date7);
 
                     //weather icon
@@ -773,6 +851,22 @@ public class MainActivity extends AppCompatActivity {
             Address address = list.get(0);
 
             Log.d(TAG, "Found a location: " + address.toString());
+
+
+            address.getLatitude();
+            lat = address.getLatitude();
+            address.getLongitude();
+            lon = address.getLongitude();
+
+            String countryName = address.getCountryName();
+
+            //cityName = mSearchText.getText().toString();
+            //cityName = address.getFeatureName();
+
+
+            Log.d(TAG, "geoLocate: lat and lon address: " + address.getLatitude() + address.getLongitude());
+            Log.d(TAG, "geoLocate: lat and lon var: " + lat + lon);
+            Log.d(TAG, "geoLocate: city name: " + tvLocation);
 
             //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }

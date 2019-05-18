@@ -164,10 +164,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="48dp"
                 android:text="@string/loading_placeholder"
                 android:textColor="@android:color/black"
-                android:textSize="35sp"
+                android:textSize="25sp"
                 app:layout_constraintStart_toEndOf="@+id/button_current_location"
                 app:layout_constraintTop_toBottomOf="@+id/tv_last_updated" />
 
@@ -673,18 +673,53 @@
 
             </RelativeLayout>
 
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="200dp"
+            <RelativeLayout
+                android:id="@+id/relative_details"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="88dp"
-                android:layout_marginLeft="88dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="48dp"
-                android:background="@android:color/holo_blue_bright"
-                android:text="test bottom text for scroll"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relative_horizontal" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/forecast_background"
+                android:elevation="15dp"
+                android:padding="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/relative_horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details"
+                    android:textSize="20sp" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/tv_details"
+                    android:background="@drawable/horizontal_scroll_background">
+
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </RelativeLayout>
+
+
+            <!--            <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="88dp"
+                            android:layout_marginLeft="88dp"
+                            android:layout_marginTop="48dp"
+                            android:background="@android:color/holo_blue_bright"
+                            android:text="test bottom text for scroll"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/relative_details" />-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -692,9 +727,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="64dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                android:background="@android:color/white" />
+                app:layout_constraintTop_toBottomOf="@+id/relative_details" />
 
 
         </android.support.constraint.ConstraintLayout>
