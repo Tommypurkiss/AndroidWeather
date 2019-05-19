@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/light_blue" />
+    <item android:drawable="@color/card_background" />
     <item>
         <bitmap
-            android:src="@drawable/icon_dark_192"
+            android:src="@drawable/icon_dark_144"
             android:gravity="center"/>
 
     </item>

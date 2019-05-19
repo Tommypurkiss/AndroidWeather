@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="411dp"
-        android:layout_height="61dp"
-        android:background="@drawable/white_border"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/search_border"
         android:elevation="10dp"
         android:padding="10dp"
         tools:layout_editor_absoluteX="0dp"
@@ -23,7 +24,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:src="@drawable/ic_settings_black_32dp"
-            android:background="#fff"
+            android:background="@color/search_bar_background"
             android:layout_centerVertical="true"
             />
 
@@ -46,7 +47,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/iv_search"
             android:layout_toRightOf="@+id/iv_search"
-            android:background="#fff"
+            android:background="@color/search_bar_background"
             android:hint="Enter City"
             android:inputType="textCapSentences"
             android:maxLines="1"

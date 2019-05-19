@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -102,21 +103,15 @@ public class MainActivity extends AppCompatActivity {
     public ImageView ivForecastEight;
     public TextView tvForecastEightTemp;
 
-
-
-
     public ImageButton ibRefresh;
     public ImageButton ibSettings;
-
     public ImageView ivWeatherIcon;
 
     public RequestQueue mRequestQueue;
-
     public Boolean mLocationPermissionGranted = false;
     public FusedLocationProviderClient mFusedLocationClient;
 
     public FirebaseAnalytics mFirebaseAnalytics;
-
 
     //CONST
     public final static String TAG = "MainActivity";
@@ -138,12 +133,18 @@ public class MainActivity extends AppCompatActivity {
     private String weatherIcon6;
     private String weatherIcon7;
 
+    public TextView humidityValue;
+    public TextView pressureValue;
+    public TextView windValue;
+    public TextView cloudsValue;
+    public TextView rainPrecipValue;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         tvTemperature = findViewById(R.id.tv_temp);
         tvLocation = findViewById(R.id.tv_location);
@@ -198,10 +199,13 @@ public class MainActivity extends AppCompatActivity {
         ivForecastEight = findViewById(R.id.iv_forecast_eight);
         tvForecastEightTemp = findViewById(R.id.tv_forecast_eight_temp);
 
-
         ivWeatherIcon = findViewById(R.id.iv_weather_icon);
 
-
+        humidityValue = findViewById(R.id.tv_humidity_value);
+        pressureValue = findViewById(R.id.tv_pressure_value);
+        windValue = findViewById(R.id.tv_wind_value);
+        cloudsValue = findViewById(R.id.tv_clouds_value);
+        rainPrecipValue = findViewById(R.id.tv_rain_precip_value);
 
         mRequestQueue = Volley.newRequestQueue(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -210,16 +214,10 @@ public class MainActivity extends AppCompatActivity {
         //keeps the keyboard closed on app opening - was previously opening automatically?
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
 
         getLocationPermission();
         getDeviceLocation();
-
-        //getWeatherByCityName();
-
-        //loads the device current location weather data even after app has closed and open again because permission is true
-        //loadDataPermissionTrue();
 
         init();
 
@@ -233,13 +231,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getDeviceLocation(); //WORKS - gets device location and weather data
                 Log.d(TAG, "Location Button: " + buttonCurrentLocation);
-                Toast.makeText(MainActivity.this, "Current Location WeatherActivity", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Current Location WeatherActivity", Toast.LENGTH_SHORT).show();
             }
         });
 
         ibRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // rotates 360
+                float deg = ibRefresh.getRotation() + 360F;
+                ibRefresh.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+
+                lastUpdated();
+                mSearchText.setText("");
                 refreshActivity();
 
             }
@@ -275,15 +279,15 @@ public class MainActivity extends AppCompatActivity {
                     // execute searchmethod
                     //geoLocate(); // geo locates works and gets the lat and lon but doesnt return clear results eg barcelona returns nothing new or eixample
 
-
-                    //getWeatherByDeviceLocation();
-                    //getForecastWeatherByDeviceLocation();
-
                     getWeatherByCityName();
-                    //getForecastWeatherByDeviceLocation();
+
+                    lastUpdated();
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
+
+                    mSearchText.setText("");
+
                 }
                 return false;
             }
@@ -299,6 +303,18 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+
+
+
+        /* TODO
+        for refresh when pressed get the last saved state eg
+        if its on device location weather then call the devicelocationweather method
+
+        else user searched through search bar get last city from cityNAme var then call the weather  method
+
+
+         */
+
 
     }
 
@@ -366,6 +382,9 @@ public class MainActivity extends AppCompatActivity {
                     //TODO GET MIN MAX FOR THIS
 
 
+                    getForecastWeather();
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -378,19 +397,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRequestQueue.add(request);
-    }
-
-
-    /* -------------- WEATHER BY LAT LONG -------------- */
-
-    public void getWeatherByLatLng() {
-
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
-
-        // MARK - https://api.openweathermap.org/data/2.5/weather?lat=51.50853&lon=-0.12574&appid=7b35bff27c44e02a0ed4347c65c2ffa8 - London latlng example
-
-        Log.d(TAG, "string url latlon total: " + urlAPILatLong);
-
     }
 
 
@@ -426,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
                     lon = Double.valueOf(lonCity);
                     lat = Double.valueOf(latCity);
 
-                    getForecastWeatherByDeviceLocation();
+                    getForecastWeather();
 
 
                     Log.d(TAG, "onResponse: lat lon " + lat + lon);
@@ -458,15 +464,35 @@ public class MainActivity extends AppCompatActivity {
                     //icon
                     weatherIcon = jsoWeather.getString("icon");
 
-
                     //weather icons
-
-
                     weatherIcons();
 
 
                     String name = response.getString("name");
                     tvLocation.setText(name);
+
+                    //todo details
+
+                    String humidity = jsoMain.getString("humidity");
+                    humidityValue.setText(humidity);
+
+                    String pressure = jsoMain.getString("pressure");
+                    pressureValue.setText(pressure);
+
+                    JSONObject jsoWind = response.getJSONObject("wind");
+                    String wind = jsoWind.getString("speed");
+                    windValue.setText(wind);
+
+                    JSONObject jsoClouds = response.getJSONObject("clouds");
+                    String clouds = jsoClouds.getString("all");
+                    cloudsValue.setText(clouds);
+
+
+                    JSONObject jsoRain = response.getJSONObject("rain");
+                    String rain = jsoRain.getString("1h");
+
+                    rainPrecipValue.setText(rain);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -481,83 +507,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mRequestQueue.add(jsonObjectRequest);
-    }
-
-
-    public void weatherIcons() {
-
-        /* DAY WEATHER*/
-        // day
-        if (weatherIcon.contentEquals("01d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_01d);
-        }
-        if (weatherIcon.contentEquals("02d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_02d);
-        }
-        if (weatherIcon.contentEquals("03d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_03d);
-        }
-        if (weatherIcon.contentEquals("04d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_04d);
-        }
-        if (weatherIcon.contentEquals("09d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_09d);
-        }
-        if (weatherIcon.contentEquals("10d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_10d);
-        }
-        if (weatherIcon.contentEquals("11d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_11d);
-        }
-        if (weatherIcon.contentEquals("13d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_13d);
-        }
-        if (weatherIcon.contentEquals("50d")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_50d);
-        }
-
-        // night
-        if (weatherIcon.contentEquals("01n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_01n);
-        }
-        if (weatherIcon.contentEquals("02n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_02n);
-        }
-        if (weatherIcon.contentEquals("03n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_03n);
-        }
-        if (weatherIcon.contentEquals("04n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_04n);
-        }
-        if (weatherIcon.contentEquals("09n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_09n);
-        }
-        if (weatherIcon.contentEquals("10n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_10n);
-        }
-        if (weatherIcon.contentEquals("11n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_11n);
-        }
-        if (weatherIcon.contentEquals("13n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_13n);
-        }
-        if (weatherIcon.contentEquals("50n")) {
-            ivWeatherIcon.setImageResource(R.drawable.weather_50n);
-        }
-        /* END DAY WEATHER*/
-
-
-
-
-        /* FORECAST WEATHER*/
-
-        // WEATHER ICON 0
-
-
-
-        /* END FORECAST WEATHER*/
-
-
     }
 
 
@@ -618,6 +567,30 @@ public class MainActivity extends AppCompatActivity {
                     String name = response.getString("name");
                     tvLocation.setText(name);
 
+
+                    //todo details
+
+                    String humidity = main.getString("humidity");
+                    humidityValue.setText(humidity);
+
+                    String pressure = main.getString("pressure");
+                    pressureValue.setText(pressure);
+
+                    JSONObject jsoWind = response.getJSONObject("wind");
+                    String wind = jsoWind.getString("speed");
+                    windValue.setText(wind);
+
+                    JSONObject jsoClouds = response.getJSONObject("clouds");
+                    String clouds = jsoClouds.getString("all");
+                    cloudsValue.setText(clouds);
+
+                    JSONObject jsoRain = response.getJSONObject("rain");
+                    String rain = jsoRain.getString("1h");
+
+                    rainPrecipValue.setText(rain);
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -631,7 +604,10 @@ public class MainActivity extends AppCompatActivity {
         });
         mRequestQueue.add(jsonObjectRequest);
 
-        getForecastWeatherByDeviceLocation();
+        getForecastWeather();
+
+        lastUpdated();
+
 
     }
 
@@ -641,13 +617,13 @@ public class MainActivity extends AppCompatActivity {
 
     /* -------------- 5 DAY WEATHER BY DEVICE LOCATION -------------- */
 
-    public void getForecastWeatherByDeviceLocation() {
+    public void getForecastWeather() {
 
         //TODO Get forecast weather from either the device location weather or searched city weather
 
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
-        Log.d(TAG, "getForecastWeatherByDeviceLocation: " + urlAPILatLong);
+        Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
@@ -693,6 +669,7 @@ public class MainActivity extends AppCompatActivity {
                     //date/day
                     String date1 = jso1.getString("dt_txt");
                     //Log.d(TAG, "onResponse: day0" + date1);
+
                     tvForecastTwoTitle.setText(date1);
 
                     //weather icon
@@ -868,7 +845,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void weatherIcons() {
 
+        /* DAY WEATHER*/
+        // day
+        if (weatherIcon.contentEquals("01d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon.contentEquals("02d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon.contentEquals("03d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon.contentEquals("04d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon.contentEquals("09d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon.contentEquals("10d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon.contentEquals("11d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon.contentEquals("13d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon.contentEquals("50d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon.contentEquals("01n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon.contentEquals("02n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon.contentEquals("03n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon.contentEquals("04n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon.contentEquals("09n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon.contentEquals("10n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon.contentEquals("11n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon.contentEquals("13n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon.contentEquals("50n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_50n);
+        }
+        /* END DAY WEATHER*/
+
+
+
+
+        /* FORECAST WEATHER*/
+
+        // WEATHER ICON 0
+
+
+
+        /* END FORECAST WEATHER*/
+
+
+    }
 
 
 
@@ -915,7 +966,6 @@ public class MainActivity extends AppCompatActivity {
 
             //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
@@ -983,7 +1033,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //TODO once permissions are granted it will get the devices location and get the weather data from that
-                Toast.makeText(this, "location permission true", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "location permission true", Toast.LENGTH_SHORT).show();
 
                 init();
             }
@@ -1016,23 +1066,17 @@ public class MainActivity extends AppCompatActivity {
                 //MARK - getDeviceLocation() now works and shows current device location weather because its called after permissions are allowed
                 getDeviceLocation();
                 Log.d(TAG, "onRequestPermissionsResult: ");
-
             }
         }
     }
 
-
     //once the permission is true to get device location weather this is called in oncreate method and loads the current weather when the app is closed and starts up again
     public void loadDataPermissionTrue() {
-
         if (mLocationPermissionGranted) {
-
             getDeviceLocation();
             Log.d(TAG, "loadDataPermissionTrue: " + mLocationPermissionGranted);
         }
     }
-
-
 }
 
 

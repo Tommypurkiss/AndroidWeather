@@ -109,11 +109,11 @@
                             android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginLeft="12dp"
                             android:text="@string/loading_placeholder"
                             android:textColor="@android:color/black"
-                            android:textSize="35sp"
+                            android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/button_current_location"
                             app:layout_constraintTop_toTopOf="@+id/button_current_location" />
 
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/card_background"
@@ -281,10 +281,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -309,8 +309,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_one"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_one_title" />
@@ -333,10 +333,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -361,8 +361,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_two"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_two_title" />
@@ -385,10 +385,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -413,8 +413,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_three"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_three_title" />
@@ -437,10 +437,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -465,8 +465,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_four"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_four_title" />
@@ -489,10 +489,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -517,8 +517,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_five"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_five_title" />
@@ -542,9 +542,9 @@
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
                                 android:layout_weight="1"
+                                android:textColor="#000"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -569,8 +569,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_six"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_six_title" />
@@ -593,10 +593,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -621,8 +621,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_seven"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_seven_title" />
@@ -645,10 +645,10 @@
                                 android:layout_marginTop="16dp"
                                 android:layout_marginEnd="8dp"
                                 android:layout_marginRight="8dp"
+                                android:textColor="#000"
                                 android:layout_weight="1"
                                 android:text="@string/loading_placeholder"
                                 android:textAlignment="center"
-                                android:textColor="#000"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -673,8 +673,8 @@
                                 android:layout_marginStart="12dp"
                                 android:layout_marginLeft="12dp"
                                 android:layout_marginTop="36dp"
-                                android:text="@string/loading_placeholder"
                                 android:textColor="#000"
+                                android:text="@string/loading_placeholder"
                                 android:textSize="20sp"
                                 app:layout_constraintStart_toEndOf="@+id/iv_forecast_eight"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_forecast_eight_title" />
@@ -699,204 +699,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="300dp">
 
-                        <!-- FIRST DAY -->
-
-                        <TextView
-                            android:id="@+id/forecast_day_one"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
-                        <TextView
-                            android:id="@+id/forecast_day_one_temp_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_one"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_one" />
-
-                        <TextView
-                            android:id="@+id/forecast_day_one_temp_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_one_temp_min"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_one_temp_min" />
-
-                        <!-- END FIRST DAY -->
-
-
-                        <!-- SECOND DAY -->
-
-                        <TextView
-                            android:id="@+id/forecast_day_two"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/forecast_day_one" />
-
-
-                        <TextView
-                            android:id="@+id/forecast_day_two_temp_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_two"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_two" />
-
-                        <TextView
-                            android:id="@+id/forecast_day_two_temp_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_two_temp_min"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_two_temp_min" />
-
-                        <!-- END SECOND DAY -->
-
-
-                        <!-- THIRD DAY -->
-
-                        <TextView
-                            android:id="@+id/forecast_day_three"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/forecast_day_two" />
-
-
-                        <TextView
-                            android:id="@+id/forecast_day_three_temp_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_three"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_three" />
-
-                        <TextView
-                            android:id="@+id/forecast_day_three_temp_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_three_temp_min"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_three_temp_min" />
-
-                        <!-- END THIRD DAY -->
-
-
-                        <!-- FOURTH DAY -->
-
-                        <TextView
-                            android:id="@+id/forecast_day_four"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/forecast_day_three" />
-
-
-                        <TextView
-                            android:id="@+id/forecast_day_four_temp_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_four"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_four" />
-
-                        <TextView
-                            android:id="@+id/forecast_day_four_temp_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_four_temp_min"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_four_temp_min" />
-
-                        <!-- END FOURTH DAY -->
-
-                        <!-- FIFTH DAY -->
-
-                        <TextView
-                            android:id="@+id/forecast_day_five"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="16dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/forecast_day_four" />
-
-
-                        <TextView
-                            android:id="@+id/forecast_day_five_temp_min"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_five"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_five" />
-
-                        <TextView
-                            android:id="@+id/forecast_day_five_temp_max"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginLeft="24dp"
-                            android:text="@string/loading_placeholder"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@+id/forecast_day_five_temp_min"
-                            app:layout_constraintTop_toTopOf="@+id/forecast_day_five_temp_min" />
-
-                        <!-- END FIFTH DAY -->
-
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -912,7 +714,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/card_background"
@@ -1122,7 +924,6 @@
 
 
             </RelativeLayout>
-
 
 
             <TextView

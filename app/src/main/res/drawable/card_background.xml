@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="rectangle">
             <!-- solid background -->
-            <solid android:color="#61B7E8" />
+            <solid android:color="@color/card_background" />
             <!-- draw a border around rectangle shape -->
 
             <!-- draw 35 dp radius for each corner -->
