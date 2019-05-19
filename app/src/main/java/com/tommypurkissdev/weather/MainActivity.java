@@ -128,8 +128,15 @@ public class MainActivity extends AppCompatActivity {
     //double
     public static double lat;
     public static double lon;
-
-
+    private String weatherIcon;
+    private String weatherIcon0;
+    private String weatherIcon1;
+    private String weatherIcon2;
+    private String weatherIcon3;
+    private String weatherIcon4;
+    private String weatherIcon5;
+    private String weatherIcon6;
+    private String weatherIcon7;
 
 
     @Override
@@ -426,9 +433,36 @@ public class MainActivity extends AppCompatActivity {
 
 
                     JSONObject jsoMain = response.getJSONObject("main");
+
+                    //temp
                     String temp = jsoMain.getString("temp");
                     String tempFormat = String.valueOf(temp).split("\\.")[0];
                     tvTemperature.setText(tempFormat);
+
+                    String tempMin = jsoMain.getString("temp_min");
+                    String tempMinFormat = String.valueOf(tempMin).split("\\.")[0];
+                    tvTempMin.setText(tempMinFormat);
+
+                    String tempMax = jsoMain.getString("temp_max");
+                    String tempMaxFormat = String.valueOf(tempMax).split("\\.")[0];
+                    tvTempMax.setText(tempMaxFormat);
+
+                    // weather
+                    JSONArray jsaWeather = response.getJSONArray("weather");
+                    JSONObject jsoWeather = jsaWeather.getJSONObject(0);
+
+                    //description
+                    String description = jsoWeather.getString("description");
+                    tvDescription.setText(description);
+
+                    //icon
+                    weatherIcon = jsoWeather.getString("icon");
+
+
+                    //weather icons
+
+
+                    weatherIcons();
 
 
                     String name = response.getString("name");
@@ -450,8 +484,81 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void weatherIcons() {
+
+        /* DAY WEATHER*/
+        // day
+        if (weatherIcon.contentEquals("01d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon.contentEquals("02d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon.contentEquals("03d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon.contentEquals("04d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon.contentEquals("09d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon.contentEquals("10d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon.contentEquals("11d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon.contentEquals("13d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon.contentEquals("50d")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon.contentEquals("01n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon.contentEquals("02n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon.contentEquals("03n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon.contentEquals("04n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon.contentEquals("09n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon.contentEquals("10n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon.contentEquals("11n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon.contentEquals("13n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon.contentEquals("50n")) {
+            ivWeatherIcon.setImageResource(R.drawable.weather_50n);
+        }
+        /* END DAY WEATHER*/
 
 
+
+
+        /* FORECAST WEATHER*/
+
+        // WEATHER ICON 0
+
+
+
+        /* END FORECAST WEATHER*/
+
+
+    }
 
 
 
@@ -486,16 +593,11 @@ public class MainActivity extends AppCompatActivity {
                     tvDescription.setText(description);
 
                     //icon
-                    String weatherIcon = jsoWeather.getString("icon");
+                    weatherIcon = jsoWeather.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon.contentEquals("50d")) {
-                        ivWeatherIcon.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon.contentEquals("10d")) {
-                        ivWeatherIcon.setImageResource(R.drawable.rain_cloud);
 
-                    }
+                    weatherIcons();
+
 
                     //temp
                     JSONObject main = response.getJSONObject("main");
@@ -566,35 +668,26 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject jso0 = jsonArray.getJSONObject(0);
 
-                        //date/day
+                    //date/day
                     String date0 = jso0.getString("dt_txt");
                     //Log.d(TAG, "onResponse: day0" + date0);
                     tvForecastOneTitle.setText(date0);
 
+                    //weather icon
+                    JSONArray jsaWeather0 = jso0.getJSONArray("weather");
+                    JSONObject jsoWeather0 = jsaWeather0.getJSONObject(0);
 
-                        //weather icon
-                        JSONArray jsaWeather0 = jso0.getJSONArray("weather");
-                        JSONObject jsoWeather0 = jsaWeather0.getJSONObject(0);
+                    weatherIcon0 = jsoWeather0.getString("icon");
 
-                    String weatherIcon0 = jsoWeather0.getString("icon");
 
-                        //TODO finish off icons
-                    if (weatherIcon0.contentEquals("50d")) {
-                        ivForecastOne.setImageResource(R.drawable.group_2_big);
-                        }
-                    if (weatherIcon0.contentEquals("10n")) {
-                        ivForecastOne.setImageResource(R.drawable.rain_cloud);
-                        }
-
-                        //temperature
-                        JSONObject jsoMain0 = jso0.getJSONObject("main");
+                    //temperature
+                    JSONObject jsoMain0 = jso0.getJSONObject("main");
                     String temp0 = jsoMain0.getString("temp");
                     String temp0Format = String.valueOf(temp0).split("\\.")[0];
                     tvForecastOneTemp.setText(temp0Format);
 
 
                     // forecast two
-
                     JSONObject jso1 = jsonArray.getJSONObject(1);
 
                     //date/day
@@ -606,15 +699,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather1 = jso1.getJSONArray("weather");
                     JSONObject jsoWeather1 = jsaWeather1.getJSONObject(0);
 
-                    String weatherIcon1 = jsoWeather1.getString("icon");
+                    weatherIcon1 = jsoWeather1.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon1.contentEquals("50d")) {
-                        ivForecastTwo.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon1.contentEquals("10n")) {
-                        ivForecastTwo.setImageResource(R.drawable.rain_cloud);
-                    }
 
 
                     // temp
@@ -639,15 +725,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather2 = jso2.getJSONArray("weather");
                     JSONObject jsoWeather2 = jsaWeather2.getJSONObject(0);
 
-                    String weatherIcon2 = jsoWeather2.getString("icon");
+                    weatherIcon2 = jsoWeather2.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon2.contentEquals("50d")) {
-                        ivForecastThree.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon2.contentEquals("10n")) {
-                        ivForecastThree.setImageResource(R.drawable.rain_cloud);
-                    }
 
                     // temp
                     JSONObject jsoMain2 = jso2.getJSONObject("main");
@@ -669,15 +748,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather3 = jso3.getJSONArray("weather");
                     JSONObject jsoWeather3 = jsaWeather3.getJSONObject(0);
 
-                    String weatherIcon3 = jsoWeather3.getString("icon");
+                    weatherIcon3 = jsoWeather3.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon3.contentEquals("50d")) {
-                        ivForecastFour.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon3.contentEquals("10n")) {
-                        ivForecastFour.setImageResource(R.drawable.rain_cloud);
-                    }
 
                     // temp
                     JSONObject jsoMain3 = jso3.getJSONObject("main");
@@ -699,15 +771,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather4 = jso4.getJSONArray("weather");
                     JSONObject jsoWeather4 = jsaWeather4.getJSONObject(0);
 
-                    String weatherIcon4 = jsoWeather4.getString("icon");
+                    weatherIcon4 = jsoWeather4.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon4.contentEquals("50d")) {
-                        ivForecastFive.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon4.contentEquals("10n")) {
-                        ivForecastFive.setImageResource(R.drawable.rain_cloud);
-                    }
 
                     // temp
                     JSONObject jsoMain4 = jso4.getJSONObject("main");
@@ -729,15 +794,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather5 = jso5.getJSONArray("weather");
                     JSONObject jsoWeather5 = jsaWeather5.getJSONObject(0);
 
-                    String weatherIcon5 = jsoWeather5.getString("icon");
+                    weatherIcon5 = jsoWeather5.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon5.contentEquals("50d")) {
-                        ivForecastSix.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon5.contentEquals("10n")) {
-                        ivForecastSix.setImageResource(R.drawable.rain_cloud);
-                    }
 
                     // temp
                     JSONObject jsoMain5 = jso5.getJSONObject("main");
@@ -759,15 +817,8 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather6 = jso6.getJSONArray("weather");
                     JSONObject jsoWeather6 = jsaWeather6.getJSONObject(0);
 
-                    String weatherIcon6 = jsoWeather6.getString("icon");
+                    weatherIcon6 = jsoWeather6.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon6.contentEquals("50d")) {
-                        ivForecastSeven.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon6.contentEquals("10n")) {
-                        ivForecastSeven.setImageResource(R.drawable.rain_cloud);
-                    }
 
                     // temp
                     JSONObject jsoMain6 = jso6.getJSONObject("main");
@@ -789,21 +840,18 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsaWeather7 = jso7.getJSONArray("weather");
                     JSONObject jsoWeather7 = jsaWeather7.getJSONObject(0);
 
-                    String weatherIcon7 = jsoWeather7.getString("icon");
+                    weatherIcon7 = jsoWeather7.getString("icon");
 
-                    //TODO finish off icons
-                    if (weatherIcon7.contentEquals("50d")) {
-                        ivForecastEight.setImageResource(R.drawable.group_2_big);
-                    }
-                    if (weatherIcon7.contentEquals("10n")) {
-                        ivForecastEight.setImageResource(R.drawable.rain_cloud);
-                    }
+
 
                     // temp
                     JSONObject jsoMain7 = jso7.getJSONObject("main");
                     String temp7 = jsoMain7.getString("temp");
                     String temp7Format = String.valueOf(temp7).split("\\.")[0];
                     tvForecastEightTemp.setText(temp7Format);
+
+                    weatherIcons();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -814,12 +862,9 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
-
         mRequestQueue.add(jsonObjectRequest);
-
     }
 
 
