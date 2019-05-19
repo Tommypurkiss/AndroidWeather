@@ -109,11 +109,11 @@
                             android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginLeft="12dp"
                             android:text="@string/loading_placeholder"
                             android:textColor="@android:color/black"
-                            android:textSize="35sp"
+                            android:textSize="25sp"
                             app:layout_constraintStart_toEndOf="@+id/button_current_location"
                             app:layout_constraintTop_toTopOf="@+id/button_current_location" />
 
@@ -707,6 +707,7 @@
                                             android:layout_marginLeft="16dp"
                                             android:layout_marginTop="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toTopOf="parent" />
@@ -719,6 +720,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_one"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_one" />
@@ -730,6 +732,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_one_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_one_temp_min" />
@@ -743,6 +746,7 @@
                                             android:layout_marginLeft="16dp"
                                             android:layout_marginTop="16dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/forecast_day_one" />
@@ -755,6 +759,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_two"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_two" />
@@ -766,6 +771,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_two_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_two_temp_min" />
@@ -779,6 +785,7 @@
                                             android:layout_marginLeft="16dp"
                                             android:layout_marginTop="16dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/forecast_day_two" />
@@ -791,6 +798,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_three"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_three" />
@@ -802,6 +810,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_three_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_three_temp_min" />
@@ -814,6 +823,7 @@
                                             android:layout_marginLeft="16dp"
                                             android:layout_marginTop="16dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/forecast_day_three" />
@@ -826,6 +836,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_four"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_four" />
@@ -837,6 +848,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_four_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_four_temp_min" />
@@ -851,6 +863,7 @@
                                             android:layout_marginLeft="16dp"
                                             android:layout_marginTop="16dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toStartOf="parent"
                                             app:layout_constraintTop_toBottomOf="@+id/forecast_day_four" />
@@ -863,6 +876,7 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_five"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_five" />
@@ -874,12 +888,10 @@
                                             android:layout_marginStart="24dp"
                                             android:layout_marginLeft="24dp"
                                             android:text="@string/loading_placeholder"
+                                            android:textColor="#000"
                                             android:textSize="20sp"
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_five_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_five_temp_min" />
-
-
-
 
                                     </android.support.constraint.ConstraintLayout>
 
@@ -929,6 +941,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Humidity: "
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -940,6 +953,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="@string/loading_placeholder"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_humidity_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_humidity_title" />
 
@@ -951,6 +965,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="%"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_humidity_value"
                         app:layout_constraintTop_toTopOf="@+id/tv_humidity_value" />
                     <!-- End Humidity -->
@@ -965,6 +980,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Pressure: "
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_humidity_title" />
 
@@ -976,6 +992,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="@string/loading_placeholder"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_pressure_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_pressure_title" />
 
@@ -987,6 +1004,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="mb"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_pressure_value"
                         app:layout_constraintTop_toTopOf="@+id/tv_pressure_value" />
                     <!-- End Pressure -->
@@ -1002,6 +1020,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Wind: "
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_pressure_title" />
 
@@ -1013,6 +1032,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="@string/loading_placeholder"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_wind_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_wind_title" />
 
@@ -1024,6 +1044,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="meters/sec"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_wind_value"
                         app:layout_constraintTop_toTopOf="@+id/tv_wind_value" />
                     <!-- End Wind -->
@@ -1039,6 +1060,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Clouds: "
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_wind_title" />
 
@@ -1050,6 +1072,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="@string/loading_placeholder"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_clouds_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_clouds_title" />
 
@@ -1061,6 +1084,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="%"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_clouds_value"
                         app:layout_constraintTop_toTopOf="@+id/tv_clouds_value" />
                     <!-- End Clouds -->
@@ -1075,6 +1099,7 @@
                         android:layout_marginTop="24dp"
                         android:text="Rain Precip (1H): "
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_clouds_title" />
 
@@ -1086,6 +1111,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="@string/loading_placeholder"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_rain_precip_title"
                         app:layout_constraintTop_toTopOf="@+id/tv_rain_precip_title" />
 
@@ -1097,6 +1123,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="mm"
                         android:textSize="20sp"
+                        android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_rain_precip_value"
                         app:layout_constraintTop_toTopOf="@+id/tv_rain_precip_value" />
                     <!-- End Clouds -->
