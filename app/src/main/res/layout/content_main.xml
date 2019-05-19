@@ -686,8 +686,7 @@
                 </HorizontalScrollView>
 
 
-                <!-- TODO fix this forecast section -->
-                <!--                <RelativeLayout
+                <RelativeLayout
                                     android:id="@+id/layout_day_forecast"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -699,7 +698,6 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="300dp">
 
-                                        &lt;!&ndash; FIRST DAY &ndash;&gt;
 
                                         <TextView
                                             android:id="@+id/forecast_day_one"
@@ -736,10 +734,6 @@
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_one_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_one_temp_min" />
 
-                                        &lt;!&ndash; END FIRST DAY &ndash;&gt;
-
-
-                                        &lt;!&ndash; SECOND DAY &ndash;&gt;
 
                                         <TextView
                                             android:id="@+id/forecast_day_two"
@@ -776,10 +770,6 @@
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_two_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_two_temp_min" />
 
-                                        &lt;!&ndash; END SECOND DAY &ndash;&gt;
-
-
-                                        &lt;!&ndash; THIRD DAY &ndash;&gt;
 
                                         <TextView
                                             android:id="@+id/forecast_day_three"
@@ -816,11 +806,6 @@
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_three_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_three_temp_min" />
 
-                                        &lt;!&ndash; END THIRD DAY &ndash;&gt;
-
-
-                                        &lt;!&ndash; FOURTH DAY &ndash;&gt;
-
                                         <TextView
                                             android:id="@+id/forecast_day_four"
                                             android:layout_width="wrap_content"
@@ -856,9 +841,7 @@
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_four_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_four_temp_min" />
 
-                                        &lt;!&ndash; END FOURTH DAY &ndash;&gt;
 
-                                        &lt;!&ndash; FIFTH DAY &ndash;&gt;
 
                                         <TextView
                                             android:id="@+id/forecast_day_five"
@@ -895,12 +878,12 @@
                                             app:layout_constraintStart_toEndOf="@+id/forecast_day_five_temp_min"
                                             app:layout_constraintTop_toTopOf="@+id/forecast_day_five_temp_min" />
 
-                                        &lt;!&ndash; END FIFTH DAY &ndash;&gt;
+
 
 
                                     </android.support.constraint.ConstraintLayout>
 
-                                </RelativeLayout>-->
+                </RelativeLayout>
             </RelativeLayout>
 
 
