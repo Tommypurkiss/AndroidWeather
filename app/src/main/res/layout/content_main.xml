@@ -128,7 +128,7 @@
                             android:gravity="center"
                             android:text="@string/loading_placeholder"
                             android:textColor="@android:color/black"
-                            android:textSize="100sp"
+                            android:textSize="85sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
@@ -196,15 +196,14 @@
 
                         <ImageView
                             android:id="@+id/iv_weather_icon"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:layout_marginStart="32dp"
                             android:layout_marginLeft="32dp"
-                            android:layout_marginTop="32dp"
                             android:contentDescription="@string/displays_weather_icon"
                             android:foregroundGravity="center"
-                            app:layout_constraintStart_toEndOf="@+id/tv_temp"
-                            app:layout_constraintTop_toTopOf="@+id/tv_degrees" />
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
+                            app:layout_constraintStart_toEndOf="@+id/tv_temp" />
 
                         <TextView
                             android:id="@+id/tv_description"
@@ -295,7 +294,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -347,7 +345,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -399,7 +396,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -451,7 +447,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -503,7 +498,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -555,7 +549,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -607,7 +600,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -659,7 +651,6 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginTop="24dp"
-                                android:background="@android:color/darker_gray"
                                 android:contentDescription="@string/displays_weather_icon"
                                 android:foregroundGravity="center"
                                 app:layout_constraintStart_toStartOf="parent"

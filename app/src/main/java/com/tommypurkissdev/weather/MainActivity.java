@@ -123,21 +123,22 @@ public class MainActivity extends AppCompatActivity {
     //double
     public static double lat;
     public static double lon;
-    private String weatherIcon;
-    private String weatherIcon0;
-    private String weatherIcon1;
-    private String weatherIcon2;
-    private String weatherIcon3;
-    private String weatherIcon4;
-    private String weatherIcon5;
-    private String weatherIcon6;
-    private String weatherIcon7;
+    public String weatherIcon;
+    public String weatherIcon0;
+    public String weatherIcon1;
+    public String weatherIcon2;
+    public String weatherIcon3;
+    public String weatherIcon4;
+    public String weatherIcon5;
+    public String weatherIcon6;
+    public String weatherIcon7;
 
     public TextView humidityValue;
     public TextView pressureValue;
     public TextView windValue;
     public TextView cloudsValue;
     public TextView rainPrecipValue;
+
 
 
 
@@ -819,7 +820,10 @@ public class MainActivity extends AppCompatActivity {
 
                     weatherIcon7 = jsoWeather7.getString("icon");
 
+                    Log.d(TAG, "onResponse: " + weatherIcon0);
 
+                    //weatherIcons();
+                    forecastWeatherIcons();
 
                     // temp
                     JSONObject jsoMain7 = jso7.getJSONObject("main");
@@ -827,7 +831,7 @@ public class MainActivity extends AppCompatActivity {
                     String temp7Format = String.valueOf(temp7).split("\\.")[0];
                     tvForecastEightTemp.setText(temp7Format);
 
-                    weatherIcons();
+
 
 
                 } catch (JSONException e) {
@@ -849,7 +853,21 @@ public class MainActivity extends AppCompatActivity {
 
         /* DAY WEATHER*/
         // day
-        if (weatherIcon.contentEquals("01d")) {
+        if (weatherIcon.contentEquals("01d")
+
+
+                /*
+                                && weatherIcon0.contentEquals("01d")
+                && weatherIcon1.contentEquals("01d")
+                && weatherIcon2.contentEquals("01d")
+                && weatherIcon3.contentEquals("01d")
+                && weatherIcon4.contentEquals("01d")
+                && weatherIcon5.contentEquals("01d")
+                && weatherIcon6.contentEquals("01d")
+                && weatherIcon7.contentEquals("01d")*/
+
+
+        ) {
             ivWeatherIcon.setImageResource(R.drawable.weather_01d);
         }
         if (weatherIcon.contentEquals("02d")) {
@@ -908,17 +926,533 @@ public class MainActivity extends AppCompatActivity {
         /* END DAY WEATHER*/
 
 
+    }
+
+    public void forecastWeatherIcons() {
 
 
-        /* FORECAST WEATHER*/
+        /* FORECAST ONE WEATHER*/
 
         // WEATHER ICON 0
 
+        if (weatherIcon0.contentEquals("01d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon.contentEquals("02d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon.contentEquals("03d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon.contentEquals("04d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon.contentEquals("09d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon.contentEquals("10d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon.contentEquals("11d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon.contentEquals("13d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon.contentEquals("50d")) {
+            ivForecastOne.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon.contentEquals("01n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon.contentEquals("02n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon.contentEquals("03n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon.contentEquals("04n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon.contentEquals("09n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon.contentEquals("10n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon.contentEquals("11n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon.contentEquals("13n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon.contentEquals("50n")) {
+            ivForecastOne.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST ONE WEATHER*/
 
 
-        /* END FORECAST WEATHER*/
+        /* FORECAST TWO WEATHER*/
+
+        // WEATHER ICON 1
+
+        if (weatherIcon1.contentEquals("01d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon1.contentEquals("02d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon1.contentEquals("03d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon1.contentEquals("04d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon1.contentEquals("09d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon1.contentEquals("10d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon1.contentEquals("11d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon1.contentEquals("13d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon1.contentEquals("50d")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon1.contentEquals("01n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon1.contentEquals("02n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon1.contentEquals("03n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon1.contentEquals("04n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon1.contentEquals("09n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon1.contentEquals("10n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon1.contentEquals("11n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon1.contentEquals("13n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon1.contentEquals("50n")) {
+            ivForecastTwo.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST TWO WEATHER*/
 
 
+
+
+        /* FORECAST THREE WEATHER*/
+
+        // WEATHER ICON 2
+
+        if (weatherIcon2.contentEquals("01d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon2.contentEquals("02d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon2.contentEquals("03d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon2.contentEquals("04d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon2.contentEquals("09d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon2.contentEquals("10d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon2.contentEquals("11d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon2.contentEquals("13d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon2.contentEquals("50d")) {
+            ivForecastThree.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon2.contentEquals("01n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon2.contentEquals("02n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon2.contentEquals("03n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon2.contentEquals("04n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon2.contentEquals("09n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon2.contentEquals("10n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon2.contentEquals("11n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon2.contentEquals("13n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon2.contentEquals("50n")) {
+            ivForecastThree.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST THREE WEATHER*/
+
+
+
+
+        /* FORECAST FOUR WEATHER*/
+
+        // WEATHER ICON 3
+
+        if (weatherIcon3.contentEquals("01d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon3.contentEquals("02d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon3.contentEquals("03d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon3.contentEquals("04d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon3.contentEquals("09d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon3.contentEquals("10d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon3.contentEquals("11d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon3.contentEquals("13d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon3.contentEquals("50d")) {
+            ivForecastFour.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon3.contentEquals("01n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon3.contentEquals("02n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon3.contentEquals("03n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon3.contentEquals("04n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon3.contentEquals("09n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon3.contentEquals("10n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon3.contentEquals("11n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon3.contentEquals("13n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon3.contentEquals("50n")) {
+            ivForecastFour.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST FOUR WEATHER*/
+
+
+
+
+        /* FORECAST FIVE WEATHER*/
+
+        // WEATHER ICON 4
+
+        if (weatherIcon4.contentEquals("01d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon4.contentEquals("02d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon4.contentEquals("03d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon4.contentEquals("04d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon4.contentEquals("09d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon4.contentEquals("10d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon4.contentEquals("11d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon4.contentEquals("13d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon4.contentEquals("50d")) {
+            ivForecastFive.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon4.contentEquals("01n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon4.contentEquals("02n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon4.contentEquals("03n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon4.contentEquals("04n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon4.contentEquals("09n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon4.contentEquals("10n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon4.contentEquals("11n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon4.contentEquals("13n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon4.contentEquals("50n")) {
+            ivForecastFive.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST FIVE WEATHER*/
+
+
+
+
+        /* FORECAST SIX WEATHER*/
+
+        // WEATHER ICON 5
+
+        if (weatherIcon5.contentEquals("01d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon5.contentEquals("02d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon5.contentEquals("03d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon5.contentEquals("04d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon5.contentEquals("09d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon5.contentEquals("10d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon5.contentEquals("11d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon5.contentEquals("13d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon5.contentEquals("50d")) {
+            ivForecastSix.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon5.contentEquals("01n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon5.contentEquals("02n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon5.contentEquals("03n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon5.contentEquals("04n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon5.contentEquals("09n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon5.contentEquals("10n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon5.contentEquals("11n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon5.contentEquals("13n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon5.contentEquals("50n")) {
+            ivForecastSix.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST SIX WEATHER*/
+
+
+
+
+        /* FORECAST SEVEN WEATHER*/
+
+        // WEATHER ICON 6
+
+        if (weatherIcon6.contentEquals("01d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon6.contentEquals("02d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon6.contentEquals("03d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon6.contentEquals("04d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon6.contentEquals("09d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon6.contentEquals("10d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon6.contentEquals("11d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon6.contentEquals("13d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon6.contentEquals("50d")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon6.contentEquals("01n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon6.contentEquals("02n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon6.contentEquals("03n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon6.contentEquals("04n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon6.contentEquals("09n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon6.contentEquals("10n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon6.contentEquals("11n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon6.contentEquals("13n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon6.contentEquals("50n")) {
+            ivForecastSeven.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST SEVEN WEATHER*/
+
+
+
+
+        /* FORECAST EIGHT WEATHER*/
+
+        // WEATHER ICON 7
+
+        if (weatherIcon7.contentEquals("01d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_01d);
+        }
+        if (weatherIcon7.contentEquals("02d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_02d);
+        }
+        if (weatherIcon7.contentEquals("03d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_03d);
+        }
+        if (weatherIcon7.contentEquals("04d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_04d);
+        }
+        if (weatherIcon7.contentEquals("09d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_09d);
+        }
+        if (weatherIcon7.contentEquals("10d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_10d);
+        }
+        if (weatherIcon7.contentEquals("11d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_11d);
+        }
+        if (weatherIcon7.contentEquals("13d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_13d);
+        }
+        if (weatherIcon7.contentEquals("50d")) {
+            ivForecastEight.setImageResource(R.drawable.weather_50d);
+        }
+
+        // night
+        if (weatherIcon7.contentEquals("01n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_01n);
+        }
+        if (weatherIcon7.contentEquals("02n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_02n);
+        }
+        if (weatherIcon7.contentEquals("03n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_03n);
+        }
+        if (weatherIcon7.contentEquals("04n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_04n);
+        }
+        if (weatherIcon7.contentEquals("09n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_09n);
+        }
+        if (weatherIcon7.contentEquals("10n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_10n);
+        }
+        if (weatherIcon7.contentEquals("11n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_11n);
+        }
+        if (weatherIcon7.contentEquals("13n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_13n);
+        }
+        if (weatherIcon7.contentEquals("50n")) {
+            ivForecastEight.setImageResource(R.drawable.weather_50n);
+        }
+
+        /* END FORECAST SEVEN WEATHER*/
     }
 
 
