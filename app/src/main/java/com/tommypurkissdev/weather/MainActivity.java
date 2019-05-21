@@ -265,6 +265,25 @@ public class MainActivity extends AppCompatActivity {
     // END OF ON CREATE
 
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getDeviceLocation();
+
+        //refreshActivity();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
     //handles the searching for cities
     public void init() {
         Log.d(TAG, "Initialising");
@@ -853,21 +872,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* DAY WEATHER*/
         // day
-        if (weatherIcon.contentEquals("01d")
-
-
-                /*
-                                && weatherIcon0.contentEquals("01d")
-                && weatherIcon1.contentEquals("01d")
-                && weatherIcon2.contentEquals("01d")
-                && weatherIcon3.contentEquals("01d")
-                && weatherIcon4.contentEquals("01d")
-                && weatherIcon5.contentEquals("01d")
-                && weatherIcon6.contentEquals("01d")
-                && weatherIcon7.contentEquals("01d")*/
-
-
-        ) {
+        if (weatherIcon.contentEquals("01d")) {
             ivWeatherIcon.setImageResource(R.drawable.weather_01d);
         }
         if (weatherIcon.contentEquals("02d")) {
@@ -938,57 +943,57 @@ public class MainActivity extends AppCompatActivity {
         if (weatherIcon0.contentEquals("01d")) {
             ivForecastOne.setImageResource(R.drawable.weather_01d);
         }
-        if (weatherIcon.contentEquals("02d")) {
+        if (weatherIcon0.contentEquals("02d")) {
             ivForecastOne.setImageResource(R.drawable.weather_02d);
         }
-        if (weatherIcon.contentEquals("03d")) {
+        if (weatherIcon0.contentEquals("03d")) {
             ivForecastOne.setImageResource(R.drawable.weather_03d);
         }
-        if (weatherIcon.contentEquals("04d")) {
+        if (weatherIcon0.contentEquals("04d")) {
             ivForecastOne.setImageResource(R.drawable.weather_04d);
         }
-        if (weatherIcon.contentEquals("09d")) {
+        if (weatherIcon0.contentEquals("09d")) {
             ivForecastOne.setImageResource(R.drawable.weather_09d);
         }
-        if (weatherIcon.contentEquals("10d")) {
+        if (weatherIcon0.contentEquals("10d")) {
             ivForecastOne.setImageResource(R.drawable.weather_10d);
         }
-        if (weatherIcon.contentEquals("11d")) {
+        if (weatherIcon0.contentEquals("11d")) {
             ivForecastOne.setImageResource(R.drawable.weather_11d);
         }
-        if (weatherIcon.contentEquals("13d")) {
+        if (weatherIcon0.contentEquals("13d")) {
             ivForecastOne.setImageResource(R.drawable.weather_13d);
         }
-        if (weatherIcon.contentEquals("50d")) {
+        if (weatherIcon0.contentEquals("50d")) {
             ivForecastOne.setImageResource(R.drawable.weather_50d);
         }
 
         // night
-        if (weatherIcon.contentEquals("01n")) {
+        if (weatherIcon0.contentEquals("01n")) {
             ivForecastOne.setImageResource(R.drawable.weather_01n);
         }
-        if (weatherIcon.contentEquals("02n")) {
+        if (weatherIcon0.contentEquals("02n")) {
             ivForecastOne.setImageResource(R.drawable.weather_02n);
         }
-        if (weatherIcon.contentEquals("03n")) {
+        if (weatherIcon0.contentEquals("03n")) {
             ivForecastOne.setImageResource(R.drawable.weather_03n);
         }
-        if (weatherIcon.contentEquals("04n")) {
+        if (weatherIcon0.contentEquals("04n")) {
             ivForecastOne.setImageResource(R.drawable.weather_04n);
         }
-        if (weatherIcon.contentEquals("09n")) {
+        if (weatherIcon0.contentEquals("09n")) {
             ivForecastOne.setImageResource(R.drawable.weather_09n);
         }
-        if (weatherIcon.contentEquals("10n")) {
+        if (weatherIcon0.contentEquals("10n")) {
             ivForecastOne.setImageResource(R.drawable.weather_10n);
         }
-        if (weatherIcon.contentEquals("11n")) {
+        if (weatherIcon0.contentEquals("11n")) {
             ivForecastOne.setImageResource(R.drawable.weather_11n);
         }
-        if (weatherIcon.contentEquals("13n")) {
+        if (weatherIcon0.contentEquals("13n")) {
             ivForecastOne.setImageResource(R.drawable.weather_13n);
         }
-        if (weatherIcon.contentEquals("50n")) {
+        if (weatherIcon0.contentEquals("50n")) {
             ivForecastOne.setImageResource(R.drawable.weather_50n);
         }
 
