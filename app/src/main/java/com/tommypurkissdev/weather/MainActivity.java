@@ -243,9 +243,9 @@ public class MainActivity extends AppCompatActivity {
                 float deg = ibRefresh.getRotation() + 360F;
                 ibRefresh.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
 
-                lastUpdated();
                 mSearchText.setText("");
                 refreshActivity();
+                lastUpdated();
 
             }
         });

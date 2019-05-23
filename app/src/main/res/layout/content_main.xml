@@ -72,13 +72,14 @@
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ib_refresh">
+                app:layout_constraintTop_toBottomOf="@+id/ib_refresh"
+                tools:targetApi="lollipop">
 
                 <TextView
                     android:id="@+id/tv_current_weather"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Weather"
+                    android:text="@string/current_weather"
                     android:textSize="20sp" />
 
 
@@ -124,7 +125,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginLeft="16dp"
-                            android:layout_marginTop="44dp"
+                            android:layout_marginTop="64dp"
                             android:gravity="center"
                             android:text="@string/loading_placeholder"
                             android:textColor="@android:color/black"
@@ -243,13 +244,14 @@
                 app:layout_constraintCircleRadius="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/relative_current_weather">
+                app:layout_constraintTop_toBottomOf="@id/relative_current_weather"
+                tools:targetApi="lollipop">
 
                 <TextView
                     android:id="@+id/tv_forecast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forecast"
+                    android:text="@string/forecast"
                     android:textSize="20sp" />
 
                 <HorizontalScrollView
@@ -907,14 +909,15 @@
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relative_horizontal">
+                app:layout_constraintTop_toBottomOf="@+id/relative_horizontal"
+                tools:targetApi="lollipop">
 
 
                 <TextView
                     android:id="@+id/tv_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Details"
+                    android:text="@string/details"
                     android:textSize="20sp" />
 
                 <android.support.constraint.ConstraintLayout
@@ -931,7 +934,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Humidity: "
+                        android:text="@string/humidity"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
@@ -955,7 +958,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="%"
+                        android:text="@string/percent"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_humidity_value"
@@ -970,7 +973,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Pressure: "
+                        android:text="@string/pressure"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
@@ -994,7 +997,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="mb"
+                        android:text="@string/mb"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_pressure_value"
@@ -1010,7 +1013,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Wind: "
+                        android:text="@string/wind"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1034,7 +1037,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="meters/sec"
+                        android:text="@string/meters_sec"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_wind_value"
@@ -1050,7 +1053,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Clouds: "
+                        android:text="@string/clouds"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1074,7 +1077,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="%"
+                        android:text="@string/percent"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_clouds_value"
@@ -1089,7 +1092,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Rain Precip (1H): "
+                        android:text="@string/rain_precip_1h"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toStartOf="parent"
@@ -1113,7 +1116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:text="mm"
+                        android:text="@string/mm"
                         android:textSize="20sp"
                         android:textColor="#000"
                         app:layout_constraintStart_toEndOf="@+id/tv_rain_precip_value"

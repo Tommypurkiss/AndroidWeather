@@ -7,4 +7,16 @@
     <string name="click_here_to_get_device_location_weather">Click here to get device location weather</string>
     <string name="displays_weather_icon">Displays weather icon</string>
     <string name="click_here_to_refresh">Click here to refresh</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="details">Details</string>
+    <string name="humidity">Humidity:</string>
+    <string name="percent">%</string>
+    <string name="pressure">Pressure:</string>
+    <string name="mb">mb</string>
+    <string name="wind">Wind:</string>
+    <string name="meters_sec">meters/sec</string>
+    <string name="clouds">Clouds:</string>
+    <string name="rain_precip_1h">Rain Precip (1H):</string>
+    <string name="mm">mm</string>
+    <string name="forecast">Forecast</string>
 </resources>
