@@ -1,17 +1,26 @@
 package com.tommypurkissdev.weather
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
+import com.tommypurkissdev.weather.MainActivity.tvTemperature
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.content_settings.*
 
 class SettingsActivity : AppCompatActivity() {
 
-    val TAG = "MainActivity"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+    }
 
 
+    val TAG = "SettingsActivity"
+
+
+/*
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +30,14 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
+    }
+*/
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(intent)
     }
 
     fun onRadioButtonClick(view: View) {
@@ -69,17 +86,18 @@ class SettingsActivity : AppCompatActivity() {
 
          */
 
-        //tvTemperature.text
+        tvTemperature.text
 
-        //var tempValue: Double = tvTemperature.text.toString().toDouble()
+        var tempValue: Double = tvTemperature.text.toString().toDouble()
 
-        //Log.d(TAG, "celsiusToFahrenheit: " + tvTemperature)
+        Log.d(TAG, "celsiusToFahrenheit: " + tvTemperature)
 
 
-        //var fahrenheit: BigDecimal = temp * (9/5) + 32
+        var fahrenheit: Double = tempValue * (9 / 5) + 32
 
-        //rb_celsius.text = fahrenheit.toString()
+        tvTemperature.text = fahrenheit.toString()
+
+        Log.d(TAG, "celsiusToFahrenheit: " + fahrenheit)
+
     }
-
-
 }

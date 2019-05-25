@@ -68,10 +68,14 @@ public class MainActivity extends AppCompatActivity {
     public ImageView ivForecastOne;
     public TextView tvForecastOneTemp;
 
+    public TextView tvForecastDayOne;
+
     // forecast 2
     public TextView tvForecastTwoTitle;
     public ImageView ivForecastTwo;
     public TextView tvForecastTwoTemp;
+
+    public TextView tvForecastDayTwo;
 
     // forecast 3
     public TextView tvForecastThreeTitle;
@@ -165,10 +169,15 @@ public class MainActivity extends AppCompatActivity {
         ivForecastOne = findViewById(R.id.iv_forecast_one);
         tvForecastOneTemp = findViewById(R.id.tv_forecast_one_temp);
 
+        tvForecastDayOne = findViewById(R.id.forecast_day_one);
+
         //forecast 2
         tvForecastTwoTitle = findViewById(R.id.tv_forecast_two_title);
         ivForecastTwo = findViewById(R.id.iv_forecast_two);
         tvForecastTwoTemp = findViewById(R.id.tv_forecast_two_temp);
+
+        tvForecastDayTwo = findViewById(R.id.forecast_day_two);
+
 
         //forecast 3
         tvForecastThreeTitle = findViewById(R.id.tv_forecast_three_title);
@@ -588,8 +597,7 @@ public class MainActivity extends AppCompatActivity {
                     tvLocation.setText(name);
 
 
-                    //todo details
-
+                    //details
                     String humidity = main.getString("humidity");
                     humidityValue.setText(humidity);
 
@@ -625,6 +633,7 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue.add(jsonObjectRequest);
 
         getForecastWeather();
+        getDailyForecastWeather();
 
         lastUpdated();
 
@@ -656,8 +665,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
 
-/*                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
-                    Log.d(TAG, "onResponse: " + jsonArray); // shows json*/
+                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    Log.d(TAG, "onResponse: " + jsonArray); // shows json objects
 
 
                     // forecast one
@@ -867,6 +876,64 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue.add(jsonObjectRequest);
     }
 
+
+    //5 day daily forecast
+
+    public void getDailyForecastWeather() {
+
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+
+        Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+                    JSONArray jsonArray = response.getJSONArray("list");
+
+                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    Log.d(TAG, "onResponse: " + jsonArray); // shows json
+
+
+                    //List<Integer> dailyForecastArray = new ArrayList<Integer>;
+                    //String[] dailyForecastArray = new String[0];
+ /*                   for (int i = 0; i < jsonArray.length(); i+=8) {
+                        String temporary =
+                        //dailyForecastArray[] = temporary;
+                    }*/
+
+/*                    JSONObject forecastJson = new JSONObject(response);
+                    JSONArray weatherArray = forecastJson.getJSONArray(JSON_LIST);*/
+
+                    for (int i = 0; i < jsonArray.length(); i += 8) {
+                        JSONObject dayForecast = jsonArray.getJSONObject(i);
+
+                        Log.d(TAG, "onResponse: day forecast??" + dayForecast);
+
+                        //day 1
+                        String dtTxt = dayForecast.getString("dt_txt");
+
+                        tvForecastDayOne.setText(dtTxt);
+                        tvForecastDayTwo.setText(dtTxt);
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mRequestQueue.add(jsonObjectRequest);
+
+    }
 
     public void weatherIcons() {
 
