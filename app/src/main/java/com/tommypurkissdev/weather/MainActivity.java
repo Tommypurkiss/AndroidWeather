@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvTempMax;
 
     public String cityName;
+
+    public ListView forecastListView;
+
+    // day forecast vars
+
+    public String dailyForecastDay;
+    public String dailyForecastTempMin;
+    public String dailyForecastTempMax;
 
     // forecast 1
     public TextView tvForecastOneTitle;
@@ -143,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
     public TextView cloudsValue;
     public TextView rainPrecipValue;
 
+    public TextView tvDayF;
+    public TextView tvTempMinF;
+    public TextView tvTempMaxF;
 
 
 
@@ -164,19 +176,24 @@ public class MainActivity extends AppCompatActivity {
         ibSettings = findViewById(R.id.ib_settings);
         ibRefresh = findViewById(R.id.ib_refresh);
 
+
+        forecastListView = findViewById(R.id.forecast_list_view);
+
+        tvDayF = findViewById(R.id.tv_forecast_day);
+        tvTempMinF = findViewById(R.id.tv_forecast_temp_min);
+        tvTempMaxF = findViewById(R.id.tv_forecast_temp_max);
+
         //forecast 1
         tvForecastOneTitle = findViewById(R.id.tv_forecast_one_title);
         ivForecastOne = findViewById(R.id.iv_forecast_one);
         tvForecastOneTemp = findViewById(R.id.tv_forecast_one_temp);
 
-        tvForecastDayOne = findViewById(R.id.forecast_day_one);
 
         //forecast 2
         tvForecastTwoTitle = findViewById(R.id.tv_forecast_two_title);
         ivForecastTwo = findViewById(R.id.iv_forecast_two);
         tvForecastTwoTemp = findViewById(R.id.tv_forecast_two_temp);
 
-        tvForecastDayTwo = findViewById(R.id.forecast_day_two);
 
 
         //forecast 3
@@ -252,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 float deg = ibRefresh.getRotation() + 360F;
                 ibRefresh.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
 
-                mSearchText.setText("");
+                //mSearchText.setText("");
                 refreshActivity();
                 lastUpdated();
 
@@ -315,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
 
-                    mSearchText.setText("");
+                    //mSearchText.setText("");
 
                 }
                 return false;
@@ -633,7 +650,7 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue.add(jsonObjectRequest);
 
         getForecastWeather();
-        getDailyForecastWeather();
+        //getDailyForecastWeather();
 
         lastUpdated();
 
@@ -874,12 +891,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mRequestQueue.add(jsonObjectRequest);
+
+        getDailyForecastWeather();
     }
 
 
-    //5 day daily forecast
-
+    //MARK:- As to why the min max temps are showing the same or similar it is because it gets the min/max for that current hour shown not for the whole day.
+    //TODO:- Fix the min and max to show it for the whole day rather than the hour.
     public void getDailyForecastWeather() {
+
 
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
@@ -896,44 +916,44 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: " + jsonArray); // shows json
 
 
-                    //List<Integer> dailyForecastArray = new ArrayList<Integer>;
-                    //String[] dailyForecastArray = new String[0];
- /*                   for (int i = 0; i < jsonArray.length(); i+=8) {
-                        String temporary =
-                        //dailyForecastArray[] = temporary;
-                    }*/
+//                    ArrayList<ForecastDaily> dailyForecast = new ArrayList<>();
 
-/*                    JSONObject forecastJson = new JSONObject(response);
-                    JSONArray weatherArray = forecastJson.getJSONArray(JSON_LIST);*/
+                    ArrayList<DailyForecast> dailyForecast = new ArrayList<>(); // shows all five days when put before the for loop
 
                     for (int i = 0; i < jsonArray.length(); i += 8) {
+
                         JSONObject dayForecast = jsonArray.getJSONObject(i);
 
-                        Log.d(TAG, "onResponse: day forecast??" + dayForecast);
+                        Log.d(TAG, "onResponse: day forecast??" + dailyForecast);
 
-                        //day 1
-                        String dtTxt = dayForecast.getString("dt_txt");
+                        dailyForecastDay = dayForecast.getString("dt_txt");
 
-                        tvForecastDayOne.setText(dtTxt);
-                        tvForecastDayTwo.setText(dtTxt);
+                        JSONObject jsoMain0 = dayForecast.getJSONObject("main");
+                        String tempMin = jsoMain0.getString("temp_min");
+                        dailyForecastTempMin = String.valueOf(tempMin).split("\\.")[0];
 
+                        String tempMax = jsoMain0.getString("temp_max");
+                        dailyForecastTempMax = String.valueOf(tempMax).split("\\.")[0];
 
+                        DailyForecast dailyForecastTotal = new DailyForecast(dailyForecastDay, dailyForecastTempMin, dailyForecastTempMax);
+
+                        dailyForecast.add(dailyForecastTotal);
+
+                        DailyForecastAdapter dailyForecastAdapter = new DailyForecastAdapter(getApplicationContext(), R.layout.forecast_custom_layout, dailyForecast);
+                        forecastListView.setAdapter(dailyForecastAdapter);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
             }
         });
         mRequestQueue.add(jsonObjectRequest);
-
     }
+
 
     public void weatherIcons() {
 

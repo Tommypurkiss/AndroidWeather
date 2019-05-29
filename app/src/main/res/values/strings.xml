@@ -19,4 +19,5 @@
     <string name="rain_precip_1h">Rain Precip (1H):</string>
     <string name="mm">mm</string>
     <string name="forecast">Forecast</string>
+    <string name="_3_hourly">3 Hourly</string>
 </resources>
