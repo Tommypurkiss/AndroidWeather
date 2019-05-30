@@ -2,15 +2,7 @@ package com.tommypurkissdev.weather;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,27 +24,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
 
     //VARS
-    public TextView tvTemperature;
+    public static TextView tvTemperature;
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
@@ -132,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
     //double
     public static double lat;
     public static double lon;
+    public static double deviceLat;
+    public static double deviceLon;
+
     public String weatherIcon;
     public String weatherIcon0;
     public String weatherIcon1;
@@ -153,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvTempMaxF;
 
 
+    SplashScreenActivity splashScreenActivity = new SplashScreenActivity();
+
+    LatLon latLon = new LatLon(lat, lon);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,10 +156,8 @@ public class MainActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.tv_location);
         tvDescription = findViewById(R.id.tv_description);
         buttonCurrentLocation = findViewById(R.id.button_current_location);
-        //tvLocDetails = findViewById(R.id.tv_location_details);
         mSearchText = findViewById(R.id.et_search);
         tvLastUpdated = findViewById(R.id.tv_last_updated);
-        //tvTempIcon = findViewById(R.id.iv_temp_icon);
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
         ibSettings = findViewById(R.id.ib_settings);
@@ -237,12 +228,21 @@ public class MainActivity extends AppCompatActivity {
         //keeps the keyboard closed on app opening - was previously opening automatically?
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+
+        Log.d(TAG, "onCreate: " + lat + lon);
+
+
+
+
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
 
-        getLocationPermission();
-        getDeviceLocation();
+        //getLocationPermission();
+        //getDeviceLocation();
 
         init();
+
+
+        getWeatherByDeviceLocation();
 
         /* -------------------------------------------------------- */
 
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
         buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDeviceLocation(); //WORKS - gets device location and weather data
+                //getDeviceLocation(); //WORKS - gets device location and weather data
                 Log.d(TAG, "Location Button: " + buttonCurrentLocation);
                 //Toast.makeText(MainActivity.this, "Current Location WeatherActivity", Toast.LENGTH_SHORT).show();
             }
@@ -277,8 +277,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // intent to settings activity
 
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+              /*  Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);*/
 
             }
         });
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        getDeviceLocation();
+        //getDeviceLocation();
 
         //refreshActivity();
     }
@@ -557,8 +557,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeatherByDeviceLocation() {
 
+        //TODO please for the love of god get the lat and lon frmo the latLon class objects ugh hate this code is ugh
 
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+        //String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + latFin + "&lon=" + lonFin + "&units=metric&appid=" + API_KEY;
+
+
 
         Log.d(TAG, "string url latlon total: " + urlAPILatLong);
 
@@ -571,6 +575,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jsonObject = response.getJSONObject("coord");
                     String jsoLon = jsonObject.getString("lon");
                     String jsoLat = jsonObject.getString("lat");
+/*                    lat = Double.valueOf(jsoLat);
+                    lon = Double.valueOf(jsoLon);*/
+
                     lat = Double.valueOf(jsoLat);
                     lon = Double.valueOf(jsoLon);
 
@@ -1549,7 +1556,7 @@ public class MainActivity extends AppCompatActivity {
     /* -------------- LOCATION -------------- */
 
 
-    public void geoLocate() {
+/*    public void geoLocate() {
 
         Log.d(TAG, "geoLocate: geolocating");
 
@@ -1588,9 +1595,9 @@ public class MainActivity extends AppCompatActivity {
 
             //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
-
+/*
     public void getDeviceLocation() {
 
         Log.d(TAG, "getDeviceLocation: Getting Device Current Location");
@@ -1618,7 +1625,7 @@ public class MainActivity extends AppCompatActivity {
 
                             } else {
                                 getWeather();
-                                Toast.makeText(MainActivity.this, "Current Location Not Found", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Current Location Not Found, Sorry. Try Restarting The App!", Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -1686,8 +1693,7 @@ public class MainActivity extends AppCompatActivity {
                 //once permission is granted it will get the device location weather
 
                 //MARK - getDeviceLocation() now works and shows current device location weather because its called after permissions are allowed
-                getDeviceLocation();
-                Log.d(TAG, "onRequestPermissionsResult: ");
+                //getDeviceLocation(); //TODO might not need since getDeviceLocation is called in loadDataPermissionTrue
             }
         }
     }
@@ -1699,6 +1705,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "loadDataPermissionTrue: " + mLocationPermissionGranted);
         }
     }
+    */
+
+
+
+
 }
 
 
