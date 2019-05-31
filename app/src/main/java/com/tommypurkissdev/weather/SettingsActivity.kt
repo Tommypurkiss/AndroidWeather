@@ -1,12 +1,11 @@
 package com.tommypurkissdev.weather
 
+//import com.tommypurkissdev.weather.MainActivity.tvTemperature
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.RadioButton
-import com.tommypurkissdev.weather.MainActivity.tvTemperature
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
@@ -49,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         if (rb_fahrenheit == checked) {
             //message(rb_female.text.toString() + if (rb_female.isChecked) " Checked " else " UnChecked ")
-            celsiusToFahrenheit()
+            //celsiusToFahrenheit()
         }
     }
 
@@ -78,13 +77,13 @@ class SettingsActivity : AppCompatActivity() {
          */
     }
 
-    fun celsiusToFahrenheit() {
+/*    fun celsiusToFahrenheit() {
 
-        /*
+        *//*
         get number(double) from tvTemperature.setText(tempFormat) or just temperature;
 
 
-         */
+         *//*
 
         tvTemperature.text
 
@@ -99,5 +98,5 @@ class SettingsActivity : AppCompatActivity() {
 
         Log.d(TAG, "celsiusToFahrenheit: " + fahrenheit)
 
-    }
+    }*/
 }
