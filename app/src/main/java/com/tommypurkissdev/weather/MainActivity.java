@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //VARS
-    public TextView tvTemperature;
+    public static TextView tvTemperature;
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
@@ -77,10 +77,14 @@ public class MainActivity extends AppCompatActivity {
     public ImageView ivForecastOne;
     public TextView tvForecastOneTemp;
 
+    public TextView tvForecastDayOne;
+
     // forecast 2
     public TextView tvForecastTwoTitle;
     public ImageView ivForecastTwo;
     public TextView tvForecastTwoTemp;
+
+    public TextView tvForecastDayTwo;
 
     // forecast 3
     public TextView tvForecastThreeTitle;
