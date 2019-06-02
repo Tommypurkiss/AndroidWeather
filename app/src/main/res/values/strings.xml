@@ -14,7 +14,7 @@
     <string name="pressure">Pressure:</string>
     <string name="mb">mb</string>
     <string name="wind">Wind:</string>
-    <string name="meters_sec">meters/sec</string>
+    <string name="meters_sec">m/s</string>
     <string name="clouds">Clouds:</string>
     <string name="rain_precip_1h">Rain Precip (1H):</string>
     <string name="mm">mm</string>

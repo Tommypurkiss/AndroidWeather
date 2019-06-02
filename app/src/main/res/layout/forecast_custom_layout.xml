@@ -13,6 +13,7 @@
         android:layout_weight="33.3"
         android:gravity="center"
         android:text="Day"
+        android:textSize="18sp"
         android:textAlignment="center"
         android:textColor="#000" />
 
@@ -27,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
+            android:textSize="18sp"
             android:text="Temp Min"
             android:textColor="#000" />
 
@@ -36,6 +38,7 @@
             android:layout_height="30dp"
             android:layout_below="@+id/tv_forecast_temp_min"
             android:gravity="center"
+            android:textSize="18sp"
             android:text="Temp Max"
             android:textColor="#000" />
     </LinearLayout>

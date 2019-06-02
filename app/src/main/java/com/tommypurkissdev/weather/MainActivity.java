@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,10 +44,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
@@ -163,10 +167,8 @@ public class MainActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.tv_location);
         tvDescription = findViewById(R.id.tv_description);
         buttonCurrentLocation = findViewById(R.id.button_current_location);
-        //tvLocDetails = findViewById(R.id.tv_location_details);
         mSearchText = findViewById(R.id.et_search);
         tvLastUpdated = findViewById(R.id.tv_last_updated);
-        //tvTempIcon = findViewById(R.id.iv_temp_icon);
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
         ibSettings = findViewById(R.id.ib_settings);
@@ -665,7 +667,7 @@ public class MainActivity extends AppCompatActivity {
 
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
-        Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
+        //Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
@@ -678,18 +680,37 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
 
-                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
-                    Log.d(TAG, "onResponse: " + jsonArray); // shows json objects
+                    //Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    //Log.d(TAG, "onResponse: " + jsonArray); // shows json objects
 
 
-                    // forecast one
+                    // FORECAST ONE
 
                     JSONObject jso0 = jsonArray.getJSONObject(0);
 
                     //date/day
-                    String date0 = jso0.getString("dt_txt");
+                    //String date0 = jso0.getString("dt_txt"); //OLD
                     //Log.d(TAG, "onResponse: day0" + date0);
-                    tvForecastOneTitle.setText(date0);
+
+                    Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
+                    //convert unix timestamp
+                    Date date = new Date(dayTimestamp*1000L);
+
+                    Log.d(TAG, "onResponse: date" + date);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate = sdf.format(date);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate);
+
+                    //end convert unix timestamp
+
+                    tvForecastOneTitle.setText(formattedDate);
+                    //tvForecastOneTitle.setText(date0); // OLD
+
 
                     //weather icon
                     JSONArray jsaWeather0 = jso0.getJSONArray("weather");
@@ -705,21 +726,40 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastOneTemp.setText(temp0Format);
 
 
-                    // forecast two
+
+
+                    // FORECAST TWO
                     JSONObject jso1 = jsonArray.getJSONObject(1);
 
                     //date/day
-                    String date1 = jso1.getString("dt_txt");
+                    //String date1 = jso1.getString("dt_txt");
                     //Log.d(TAG, "onResponse: day0" + date1);
 
-                    tvForecastTwoTitle.setText(date1);
+                    Long dayTimestamp1 = Long.valueOf(jso1.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp1); // unix timestamp
+                    //convert unix timestamp
+                    Date date1 = new Date(dayTimestamp1*1000L);
+
+                    Log.d(TAG, "onResponse: date" + date1);
+
+                    SimpleDateFormat sdf1 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf1.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate1 = sdf1.format(date1);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate1);
+
+                    //end convert unix timestamp
+
+                    tvForecastTwoTitle.setText(formattedDate1);
+
+                    //tvForecastTwoTitle.setText(date1);
 
                     //weather icon
                     JSONArray jsaWeather1 = jso1.getJSONArray("weather");
                     JSONObject jsoWeather1 = jsaWeather1.getJSONObject(0);
 
                     weatherIcon1 = jsoWeather1.getString("icon");
-
 
 
                     // temp
@@ -731,14 +771,35 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: " + jso1);
 
 
-                    // forecast three
+
+
+                    // FORECAST THREE
 
                     JSONObject jso2 = jsonArray.getJSONObject(2);
 
                     //date/day
-                    String date2 = jso2.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day0" + date2);
-                    tvForecastThreeTitle.setText(date2);
+//                    String date2 = jso2.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day0" + date2);
+//                    tvForecastThreeTitle.setText(date2);
+
+                    Long dayTimestamp2 = Long.valueOf(jso2.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp2); // unix timestamp
+                    //convert unix timestamp
+                    Date date2 = new Date(dayTimestamp2*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date2);
+
+                    SimpleDateFormat sdf2 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf2.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate2 = sdf2.format(date2);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate2);
+
+                    //end convert unix timestamp
+
+                    tvForecastThreeTitle.setText(formattedDate2);
+
 
                     //weather icon
                     JSONArray jsaWeather2 = jso2.getJSONArray("weather");
@@ -754,14 +815,33 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastThreeTemp.setText(temp2Format);
 
 
-                    // forecast four
+                    // FORECAST FOUR
 
                     JSONObject jso3 = jsonArray.getJSONObject(3);
 
                     //date/day
-                    String date3 = jso3.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day3" + date3);
-                    tvForecastFourTitle.setText(date3);
+//                    String date3 = jso3.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day3" + date3);
+//                    tvForecastFourTitle.setText(date3);
+
+
+                    Long dayTimestamp3 = Long.valueOf(jso3.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp3); // unix timestamp
+                    //convert unix timestamp
+                    Date date3 = new Date(dayTimestamp3*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date3);
+
+                    SimpleDateFormat sdf3 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf3.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate3 = sdf3.format(date3);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate3);
+
+                    //end convert unix timestamp
+
+                    tvForecastFourTitle.setText(formattedDate3);
 
                     //weather icon
                     JSONArray jsaWeather3 = jso3.getJSONArray("weather");
@@ -777,14 +857,32 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastFourTemp.setText(temp3Format);
 
 
-                    // forecast five
+                    // FORECAST FIVE
 
                     JSONObject jso4 = jsonArray.getJSONObject(4);
 
                     //date/day
-                    String date4 = jso4.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day4" + date4);
-                    tvForecastFiveTitle.setText(date4);
+//                    String date4 = jso4.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day4" + date4);
+//                    tvForecastFiveTitle.setText(date4);
+
+                    Long dayTimestamp4 = Long.valueOf(jso4.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp4); // unix timestamp
+                    //convert unix timestamp
+                    Date date4 = new Date(dayTimestamp4*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date4);
+
+                    SimpleDateFormat sdf4 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf4.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate4 = sdf4.format(date4);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate4);
+
+                    //end convert unix timestamp
+
+                    tvForecastFiveTitle.setText(formattedDate4);
 
                     //weather icon
                     JSONArray jsaWeather4 = jso4.getJSONArray("weather");
@@ -800,14 +898,32 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastFiveTemp.setText(temp4Format);
 
 
-                    // forecast six
+                    // FORECAST SIX
 
                     JSONObject jso5 = jsonArray.getJSONObject(5);
 
                     //date/day
-                    String date5 = jso5.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day5" + date5);
-                    tvForecastSixTitle.setText(date5);
+//                    String date5 = jso5.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day5" + date5);
+//                    tvForecastSixTitle.setText(date5);
+
+                    Long dayTimestamp5 = Long.valueOf(jso5.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp5); // unix timestamp
+                    //convert unix timestamp
+                    Date date5 = new Date(dayTimestamp5*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date5);
+
+                    SimpleDateFormat sdf5 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf5.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate5 = sdf5.format(date5);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate5);
+
+                    //end convert unix timestamp
+
+                    tvForecastSixTitle.setText(formattedDate5);
 
                     //weather icon
                     JSONArray jsaWeather5 = jso5.getJSONArray("weather");
@@ -823,14 +939,32 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastSixTemp.setText(temp5Format);
 
 
-                    // forecast seven
+                    // FORECAST SEVEN
 
                     JSONObject jso6 = jsonArray.getJSONObject(6);
 
                     //date/day
-                    String date6 = jso6.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day6" + date6);
-                    tvForecastSevenTitle.setText(date6);
+//                    String date6 = jso6.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day6" + date6);
+//                    tvForecastSevenTitle.setText(date6);
+
+                    Long dayTimestamp6 = Long.valueOf(jso6.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp6); // unix timestamp
+                    //convert unix timestamp
+                    Date date6 = new Date(dayTimestamp6*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date6);
+
+                    SimpleDateFormat sdf6 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf6.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate6 = sdf6.format(date6);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate6);
+
+                    //end convert unix timestamp
+
+                    tvForecastSevenTitle.setText(formattedDate6);
 
                     //weather icon
                     JSONArray jsaWeather6 = jso6.getJSONArray("weather");
@@ -846,14 +980,32 @@ public class MainActivity extends AppCompatActivity {
                     tvForecastSevenTemp.setText(temp6Format);
 
 
-                    // forecast eight
+                    // FORECAST EIGHT
 
                     JSONObject jso7 = jsonArray.getJSONObject(7);
 
                     //date/day
-                    String date7 = jso7.getString("dt_txt");
-                    //Log.d(TAG, "onResponse: day7" + date7);
-                    tvForecastEightTitle.setText(date7);
+//                    String date7 = jso7.getString("dt_txt");
+//                    //Log.d(TAG, "onResponse: day7" + date7);
+//                    tvForecastEightTitle.setText(date7);
+
+                    Long dayTimestamp7 = Long.valueOf(jso7.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp7); // unix timestamp
+                    //convert unix timestamp
+                    Date date7 = new Date(dayTimestamp7*1000L);
+
+                    Log.d(TAG, "onResponse: date2" + date7);
+
+                    SimpleDateFormat sdf7 = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf7.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate7 = sdf7.format(date7);
+
+                    Log.d(TAG, "onResponse: format date" + formattedDate7);
+
+                    //end convert unix timestamp
+
+                    tvForecastEightTitle.setText(formattedDate7);
 
                     //weather icon
                     JSONArray jsaWeather7 = jso7.getJSONArray("weather");
@@ -899,7 +1051,7 @@ public class MainActivity extends AppCompatActivity {
 
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
 
-        Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
+        //Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
@@ -908,11 +1060,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
 
-                    Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
-                    Log.d(TAG, "onResponse: " + jsonArray); // shows json
+                    //Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
+                    //Log.d(TAG, "onResponse: " + jsonArray); // shows json
 
-
-//                    ArrayList<ForecastDaily> dailyForecast = new ArrayList<>();
 
                     ArrayList<DailyForecast> dailyForecast = new ArrayList<>(); // shows all five days when put before the for loop
 
@@ -920,10 +1070,39 @@ public class MainActivity extends AppCompatActivity {
 
                         JSONObject dayForecast = jsonArray.getJSONObject(i);
 
-                        Log.d(TAG, "onResponse: day forecast??" + dailyForecast);
+                        //Log.d(TAG, "onResponse: day forecast??" + dailyForecast);
 
-                        dailyForecastDay = dayForecast.getString("dt_txt");
+                        //dailyForecastDay = dayForecast.getString("dt_txt");
 
+                        //forecast days
+                        String day = dayForecast.getString("dt_txt");
+                        //Log.d(TAG, "onResponse: day " + day); //shows date and time
+
+
+                        Long dayTimestamp = Long.valueOf(dayForecast.getString("dt"));
+                        Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
+
+                        //convert unix timestamp
+
+                        Date date = new Date(dayTimestamp*1000L);
+
+                        Log.d(TAG, "onResponse: date" + date);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                        // give a timezone reference for formatting (see comment at the bottom)
+                        sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                        String formattedDate = sdf.format(date);
+
+                        Log.d(TAG, "onResponse: format date" + formattedDate);
+
+                        //end convert unix timestamp
+
+                        dailyForecastDay = formattedDate;
+
+
+
+
+                        //temps
                         JSONObject jsoMain0 = dayForecast.getJSONObject("main");
                         String tempMin = jsoMain0.getString("temp_min");
                         dailyForecastTempMin = String.valueOf(tempMin).split("\\.")[0];
