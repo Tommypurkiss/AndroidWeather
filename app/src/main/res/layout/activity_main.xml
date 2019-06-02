@@ -17,16 +17,16 @@
         tools:layout_editor_absoluteY="0dp">
 
 
-        <ImageButton
-            android:id="@+id/ib_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:src="@drawable/ic_settings_black_32dp"
-            android:background="@color/search_bar_background"
-            android:layout_centerVertical="true"
-            />
+        <!--        <ImageButton
+                    android:id="@+id/ib_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/ic_settings_black_32dp"
+                    android:background="@color/search_bar_background"
+                    android:layout_centerVertical="true"
+                    />-->
 
         <ImageView
             android:id="@+id/iv_search"
@@ -35,9 +35,7 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:src="@drawable/ic_search_black_32dp"
-            android:layout_toEndOf="@+id/ib_settings"
-            android:layout_toRightOf="@+id/ib_settings" />
+            android:src="@drawable/ic_search_black_32dp" />
 
 
         <EditText
@@ -60,9 +58,6 @@
 
     </RelativeLayout>
     <include layout="@layout/content_main" />
-
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>

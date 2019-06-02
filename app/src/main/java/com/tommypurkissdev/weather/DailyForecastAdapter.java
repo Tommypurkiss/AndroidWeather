@@ -14,6 +14,10 @@ import java.util.ArrayList;
 
 class DailyForecastAdapter extends ArrayAdapter<DailyForecast> {
 
+    public static TextView tvTempMinF;
+    public static TextView tvTempMaxF;
+    public TextView tvDayF;
+
     private static final String TAG = "DailyForecastAdapter";
     public Context mContext;
     int mResource;
@@ -24,7 +28,6 @@ class DailyForecastAdapter extends ArrayAdapter<DailyForecast> {
         mResource = resource;
 
     }
-
 
     @NotNull
     @Override
@@ -44,8 +47,8 @@ class DailyForecastAdapter extends ArrayAdapter<DailyForecast> {
 
 
         TextView tvDayF = convertView.findViewById(R.id.tv_forecast_day);
-        TextView tvTempMinF = convertView.findViewById(R.id.tv_forecast_temp_min);
-        TextView tvTempMaxF = convertView.findViewById(R.id.tv_forecast_temp_max);
+        tvTempMinF = convertView.findViewById(R.id.tv_forecast_temp_min);
+        tvTempMaxF = convertView.findViewById(R.id.tv_forecast_temp_max);
 
         tvDayF.setText(day);
         tvTempMinF.setText(tempMin);

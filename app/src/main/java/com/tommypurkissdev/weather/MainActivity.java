@@ -2,7 +2,6 @@ package com.tommypurkissdev.weather;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,77 +43,73 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
 
 
     //VARS
-    public TextView tvTemperature;
+    public static TextView tvTemperature;
     public TextView tvLocation;
     public TextView tvDescription;
     public ImageButton buttonCurrentLocation;
     public EditText mSearchText;
     public TextView tvLastUpdated;
-    public TextView tvTempMin;
-    public TextView tvTempMax;
-
-    public String cityName;
+    public static TextView tvTempMin;
+    public static TextView tvTempMax;
+    public static String dailyForecastTempMin;
 
     public ListView forecastListView;
 
     // day forecast vars
 
     public String dailyForecastDay;
-    public String dailyForecastTempMin;
-    public String dailyForecastTempMax;
+    public static String dailyForecastTempMax;
+    public static TextView tvForecastOneTemp;
 
     // forecast 1
     public TextView tvForecastOneTitle;
     public ImageView ivForecastOne;
-    public TextView tvForecastOneTemp;
+    public static TextView tvForecastTwoTemp;
 
     // forecast 2
     public TextView tvForecastTwoTitle;
     public ImageView ivForecastTwo;
-    public TextView tvForecastTwoTemp;
+    public static TextView tvForecastThreeTemp;
 
     // forecast 3
     public TextView tvForecastThreeTitle;
     public ImageView ivForecastThree;
-    public TextView tvForecastThreeTemp;
+    public static TextView tvForecastFourTemp;
 
     // forecast 4
     public TextView tvForecastFourTitle;
     public ImageView ivForecastFour;
-    public TextView tvForecastFourTemp;
+    public static TextView tvForecastFiveTemp;
 
     // forecast 5
     public TextView tvForecastFiveTitle;
     public ImageView ivForecastFive;
-    public TextView tvForecastFiveTemp;
+    public static TextView tvForecastSixTemp;
 
     // forecast 6
     public TextView tvForecastSixTitle;
     public ImageView ivForecastSix;
-    public TextView tvForecastSixTemp;
+    public static TextView tvForecastSevenTemp;
 
     // forecast 7
     public TextView tvForecastSevenTitle;
     public ImageView ivForecastSeven;
-    public TextView tvForecastSevenTemp;
+    public static TextView tvForecastEightTemp;
 
     // forecast 8
     public TextView tvForecastEightTitle;
     public ImageView ivForecastEight;
-    public TextView tvForecastEightTemp;
+    public static TextView tvTempMinF;
 
     public ImageButton ibRefresh;
     public ImageButton ibSettings;
@@ -153,8 +148,13 @@ public class MainActivity extends AppCompatActivity {
     public TextView rainPrecipValue;
 
     public TextView tvDayF;
-    public TextView tvTempMinF;
-    public TextView tvTempMaxF;
+    public static TextView tvTempMaxF;
+    public String cityName = "";
+    public Switch celFahSwitch;
+
+    public String units = "metric"; // default unit?
+
+    //public String urlAPICityName = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
 
 
 
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         tvTemperature = findViewById(R.id.tv_temp);
         tvLocation = findViewById(R.id.tv_location);
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         tvLastUpdated = findViewById(R.id.tv_last_updated);
         tvTempMin = findViewById(R.id.tv_temp_min);
         tvTempMax = findViewById(R.id.tv_temp_max);
-        ibSettings = findViewById(R.id.ib_settings);
+        //ibSettings = findViewById(R.id.ib_settings);
         ibRefresh = findViewById(R.id.ib_refresh);
 
 
@@ -232,6 +233,8 @@ public class MainActivity extends AppCompatActivity {
         cloudsValue = findViewById(R.id.tv_clouds_value);
         rainPrecipValue = findViewById(R.id.tv_rain_precip_value);
 
+        celFahSwitch = findViewById(R.id.cel_fah_switch);
+
         mRequestQueue = Volley.newRequestQueue(this);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -246,10 +249,14 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
+        lastUpdated();
+
+
         /* -------------------------------------------------------- */
 
+        final Settings settings = new Settings();
 
-        lastUpdated();
+
 
         buttonCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+/*
         ibSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,6 +290,22 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
 
+            }
+        });
+*/
+
+        celFahSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (celFahSwitch.isChecked()) {
+
+                    units = "imperial";
+                    settings.celsiusToFahrenheit();
+                } else {
+                    units = "metric";
+
+                    settings.fahrenheitToCelsius();
+                }
             }
         });
 
@@ -452,10 +476,13 @@ public class MainActivity extends AppCompatActivity {
 
         cityName = mSearchText.getText().toString();
 
-        String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
+        //String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
+        String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
+
+
 
         Log.d(TAG, "getWeatherByCityName: cityname searched: " + cityName);
-        Log.d(TAG, "getWeatherByCityName: urlAPI: " + urlAPI);
+        //Log.d(TAG, "getWeatherByCityName: urlAPI: " + urlAPICityName);
 
         /*
          if city name in search text field = to urlAPI (it contains city name) then get the relevant data according to city data
@@ -538,6 +565,41 @@ public class MainActivity extends AppCompatActivity {
                     rainPrecipValue.setText(rain);
 
 
+
+                    /*
+
+                    time zone test
+
+Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
+                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
+                    //convert unix timestamp
+                    Date date = new Date(dayTimestamp*1000L);
+
+                    Log.d(TAG, "onResponse: date" + date);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
+                    // give a timezone reference for formatting (see comment at the bottom)
+                    sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+                    String formattedDate = sdf.format(date);
+ Log.d(TAG, "onResponse: format date" + formattedDate);
+
+                     */
+
+
+                    TimeZone tz = TimeZone.getTimeZone("America/Los_Angeles");
+                    Log.d(TAG, "onResponse: tz" + tz);
+
+
+                    Long dayTimestamp = Long.valueOf(response.getString("dt"));
+
+
+                    Log.d(TAG, "onResponse: dt " + dayTimestamp);
+
+
+
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -560,7 +622,7 @@ public class MainActivity extends AppCompatActivity {
     public void getWeatherByDeviceLocation() {
 
 
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + units + "&appid=" + API_KEY;
 
         Log.d(TAG, "string url latlon total: " + urlAPILatLong);
 
@@ -665,7 +727,7 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO Get forecast weather from either the device location weather or searched city weather
 
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + units + "&appid=" + API_KEY;
 
         //Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
@@ -693,18 +755,18 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d(TAG, "onResponse: day0" + date0);
 
                     Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
                     //convert unix timestamp
                     Date date = new Date(dayTimestamp*1000L);
 
-                    Log.d(TAG, "onResponse: date" + date);
+                    //Log.d(TAG, "onResponse: date" + date);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate = sdf.format(date);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate);
+                    //Log.d(TAG, "onResponse: format date" + formattedDate);
 
                     //end convert unix timestamp
 
@@ -736,18 +798,18 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d(TAG, "onResponse: day0" + date1);
 
                     Long dayTimestamp1 = Long.valueOf(jso1.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp1); // unix timestamp
+                    //Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp1); // unix timestamp
                     //convert unix timestamp
                     Date date1 = new Date(dayTimestamp1*1000L);
 
-                    Log.d(TAG, "onResponse: date" + date1);
+                    //Log.d(TAG, "onResponse: date" + date1);
 
                     SimpleDateFormat sdf1 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf1.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate1 = sdf1.format(date1);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate1);
+                    //Log.d(TAG, "onResponse: format date" + formattedDate1);
 
                     //end convert unix timestamp
 
@@ -768,7 +830,7 @@ public class MainActivity extends AppCompatActivity {
                     String temp1Format = String.valueOf(temp1).split("\\.")[0];
                     tvForecastTwoTemp.setText(temp1Format);
 
-                    Log.d(TAG, "onResponse: " + jso1);
+                    //Log.d(TAG, "onResponse: " + jso1);
 
 
 
@@ -783,18 +845,18 @@ public class MainActivity extends AppCompatActivity {
 //                    tvForecastThreeTitle.setText(date2);
 
                     Long dayTimestamp2 = Long.valueOf(jso2.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp2); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp2); // unix timestamp
                     //convert unix timestamp
                     Date date2 = new Date(dayTimestamp2*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date2);
+                    //Log.d(TAG, "onResponse: date2" + date2);
 
                     SimpleDateFormat sdf2 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf2.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate2 = sdf2.format(date2);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate2);
+                    //Log.d(TAG, "onResponse: format date" + formattedDate2);
 
                     //end convert unix timestamp
 
@@ -826,18 +888,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                     Long dayTimestamp3 = Long.valueOf(jso3.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp3); // unix timestamp
+                    //Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp3); // unix timestamp
                     //convert unix timestamp
                     Date date3 = new Date(dayTimestamp3*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date3);
+                    // Log.d(TAG, "onResponse: date2" + date3);
 
                     SimpleDateFormat sdf3 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf3.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate3 = sdf3.format(date3);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate3);
+                    //Log.d(TAG, "onResponse: format date" + formattedDate3);
 
                     //end convert unix timestamp
 
@@ -867,18 +929,18 @@ public class MainActivity extends AppCompatActivity {
 //                    tvForecastFiveTitle.setText(date4);
 
                     Long dayTimestamp4 = Long.valueOf(jso4.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp4); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp4); // unix timestamp
                     //convert unix timestamp
                     Date date4 = new Date(dayTimestamp4*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date4);
+                    //Log.d(TAG, "onResponse: date2" + date4);
 
                     SimpleDateFormat sdf4 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf4.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate4 = sdf4.format(date4);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate4);
+                    // Log.d(TAG, "onResponse: format date" + formattedDate4);
 
                     //end convert unix timestamp
 
@@ -908,18 +970,18 @@ public class MainActivity extends AppCompatActivity {
 //                    tvForecastSixTitle.setText(date5);
 
                     Long dayTimestamp5 = Long.valueOf(jso5.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp5); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp5); // unix timestamp
                     //convert unix timestamp
                     Date date5 = new Date(dayTimestamp5*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date5);
+                    // Log.d(TAG, "onResponse: date2" + date5);
 
                     SimpleDateFormat sdf5 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf5.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate5 = sdf5.format(date5);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate5);
+                    // Log.d(TAG, "onResponse: format date" + formattedDate5);
 
                     //end convert unix timestamp
 
@@ -949,18 +1011,18 @@ public class MainActivity extends AppCompatActivity {
 //                    tvForecastSevenTitle.setText(date6);
 
                     Long dayTimestamp6 = Long.valueOf(jso6.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp6); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp6); // unix timestamp
                     //convert unix timestamp
                     Date date6 = new Date(dayTimestamp6*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date6);
+                    //Log.d(TAG, "onResponse: date2" + date6);
 
                     SimpleDateFormat sdf6 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf6.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate6 = sdf6.format(date6);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate6);
+                    //Log.d(TAG, "onResponse: format date" + formattedDate6);
 
                     //end convert unix timestamp
 
@@ -990,18 +1052,18 @@ public class MainActivity extends AppCompatActivity {
 //                    tvForecastEightTitle.setText(date7);
 
                     Long dayTimestamp7 = Long.valueOf(jso7.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp7); // unix timestamp
+                    // Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp7); // unix timestamp
                     //convert unix timestamp
                     Date date7 = new Date(dayTimestamp7*1000L);
 
-                    Log.d(TAG, "onResponse: date2" + date7);
+                    // Log.d(TAG, "onResponse: date2" + date7);
 
                     SimpleDateFormat sdf7 = new SimpleDateFormat("E HH:mm");
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf7.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                     String formattedDate7 = sdf7.format(date7);
 
-                    Log.d(TAG, "onResponse: format date" + formattedDate7);
+                    // Log.d(TAG, "onResponse: format date" + formattedDate7);
 
                     //end convert unix timestamp
 
@@ -1013,7 +1075,7 @@ public class MainActivity extends AppCompatActivity {
 
                     weatherIcon7 = jsoWeather7.getString("icon");
 
-                    Log.d(TAG, "onResponse: " + weatherIcon0);
+                    //  Log.d(TAG, "onResponse: " + weatherIcon0);
 
                     //weatherIcons();
                     forecastWeatherIcons();
@@ -1049,7 +1111,7 @@ public class MainActivity extends AppCompatActivity {
     public void getDailyForecastWeather() {
 
 
-        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + API_KEY;
+        String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + units + "&appid=" + API_KEY;
 
         //Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
@@ -1080,20 +1142,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                         Long dayTimestamp = Long.valueOf(dayForecast.getString("dt"));
-                        Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
+                        //Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
 
                         //convert unix timestamp
 
                         Date date = new Date(dayTimestamp*1000L);
 
-                        Log.d(TAG, "onResponse: date" + date);
+                        //Log.d(TAG, "onResponse: date" + date);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
                         // give a timezone reference for formatting (see comment at the bottom)
                         sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                         String formattedDate = sdf.format(date);
 
-                        Log.d(TAG, "onResponse: format date" + formattedDate);
+                        //Log.d(TAG, "onResponse: format date" + formattedDate);
 
                         //end convert unix timestamp
 
