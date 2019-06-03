@@ -1,8 +1,6 @@
 package com.tommypurkissdev.weather
 
 
-import com.tommypurkissdev.weather.DailyForecastAdapter.tvTempMaxF
-import com.tommypurkissdev.weather.DailyForecastAdapter.tvTempMinF
 import com.tommypurkissdev.weather.MainActivity.*
 import java.text.NumberFormat
 
@@ -35,7 +33,7 @@ class Settings {
         var tempForecastEight: Double = tvForecastEightTemp.text.toString().toDouble()
 
 
-        var dailyForecastTempMinValue: Double = tvTempMinF.text.toString().toDouble()
+        //var dailyForecastTempMinValue: Double = tvTempMinF.text.toString().toDouble()
 
 
         //Log.d(TAG, "celsiusToFahrenheit: " + MainActivity.tvTemperature)
@@ -151,7 +149,7 @@ class Settings {
         var tempForecastEight: Double = tvForecastEightTemp.text.toString().toDouble()
 
 
-        var dailyForecastTempMaxValue: Double = tvTempMaxF.text.toString().toDouble()
+        //var dailyForecastTempMaxValue: Double = tvTempMaxF.text.toString().toDouble()
 
 
         // MAIN TEMP

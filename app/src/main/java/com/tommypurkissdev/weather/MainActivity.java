@@ -301,10 +301,14 @@ public class MainActivity extends AppCompatActivity {
 
                     units = "imperial";
                     settings.celsiusToFahrenheit();
-                } else {
-                    units = "metric";
 
+                    getDailyForecastWeather(); // calling this makes fah cel work for the daily forecast temps
+                } else {
+
+                    units = "metric";
                     settings.fahrenheitToCelsius();
+
+                    getDailyForecastWeather(); // calling this makes fah cel work for the daily forecast temps
                 }
             }
         });
