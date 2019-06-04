@@ -17,22 +17,15 @@ public class SplashScreenActivity extends AppCompatActivity {
     public final static String TAG = "SplashScreenActivity";
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO
-        //call permission true from main activity
-        //if access is allowed then go to main
-        //else stay on splash screen with toast or message to allow location
-        //or else go to an activity with 3 or 4 main cities locations
         isServiceOK();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-
 
     }
 
@@ -59,26 +52,3 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
 }
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-           if (mainActivity.mLocationPermissionGranted == true) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-
-        } else {
-            Toast.makeText(SplashScreenActivity.this, "You must Enable Location Services to continue", Toast.LENGTH_SHORT).show();
-
-        }
- */

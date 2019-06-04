@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
     // forecast 8
     public TextView tvForecastEightTitle;
     public ImageView ivForecastEight;
-    public static TextView tvTempMinF;
 
     public ImageButton ibRefresh;
     public ImageButton ibSettings;
@@ -131,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
     //double
     public static double lat;
     public static double lon;
+
+    //weather icons
     public String weatherIcon;
     public String weatherIcon0;
     public String weatherIcon1;
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView rainPrecipValue;
 
     public TextView tvDayF;
+    public static TextView tvTempMinF;
     public static TextView tvTempMaxF;
     public String cityName = "";
     public Switch celFahSwitch;
@@ -274,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 float deg = ibRefresh.getRotation() + 360F;
                 ibRefresh.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
 
-                //mSearchText.setText("");
+                mSearchText.setText("");
                 refreshActivity();
                 lastUpdated();
 
@@ -358,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
 
-                    //mSearchText.setText("");
+                    mSearchText.setText("");
 
                 }
                 return false;
@@ -1862,7 +1864,7 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                                 lon = currentLocation.getLongitude();
 
                             } else {
-                                getWeather();
+                                //getWeather();
                                 Toast.makeText(MainActivity.this, "Current Location Not Found", Toast.LENGTH_SHORT).show();
                             }
 
@@ -1922,7 +1924,7 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                     if (grantResult != PackageManager.PERMISSION_GRANTED) {
                         mLocationPermissionGranted = false;
 
-                        getWeather(); // works as a placeholder if the permissions are denied
+                        //getWeather(); // works as a placeholder if the permissions are denied
                         //TODO need to test turning permissions back on if current location weather will show
                         return;
                     }
