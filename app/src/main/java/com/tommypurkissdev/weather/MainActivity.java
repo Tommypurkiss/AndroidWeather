@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,7 +49,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -156,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String units = "metric"; // default unit?
 
+    private AdView mAdView;
+
+
+
     //public String urlAPICityName = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
 
 
@@ -164,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         tvTemperature = findViewById(R.id.tv_temp);
@@ -243,6 +252,24 @@ public class MainActivity extends AppCompatActivity {
 
         //keeps the keyboard closed on app opening - was previously opening automatically?
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
+        // app id :: ca-app-pub-9479719882402186~8478090471
+        // ad unit :: ca-app-pub-9479719882402186/7174238351
+
+
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        // ad unit :: ca-app-pub-3940256099942544/6300978111
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+
+ /*       AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+*/
 
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
 
@@ -367,7 +394,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void refreshActivity() {
@@ -767,9 +793,11 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
 
                     //Log.d(TAG, "onResponse: date" + date);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
+                    SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm", Locale.getDefault());
                     // give a timezone reference for formatting (see comment at the bottom)
                     sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
+
+
                     String formattedDate = sdf.format(date);
 
                     //Log.d(TAG, "onResponse: format date" + formattedDate);

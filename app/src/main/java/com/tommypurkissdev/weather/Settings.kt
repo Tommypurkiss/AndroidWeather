@@ -8,7 +8,8 @@ import java.text.NumberFormat
 class Settings {
 
 
-    var TAG = Settings::class
+    //val TAG = "Settings"
+
 
 
     fun celsiusToFahrenheit() {
@@ -36,7 +37,7 @@ class Settings {
         //var dailyForecastTempMinValue: Double = tvTempMinF.text.toString().toDouble()
 
 
-        //Log.d(TAG, "celsiusToFahrenheit: " + MainActivity.tvTemperature)
+        //Log.d(TAG, "celsiusToFahrenheit: " + tvTemperature)
 
         // MAIN TEMP
         var fahrenheitTemp: Double = tempValue * 9 / 5 + 32

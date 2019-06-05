@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,6 +29,7 @@
                     />-->
 
         <ImageView
+            android:contentDescription="@string/search_button"
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,18 +47,31 @@
             android:layout_toEndOf="@+id/iv_search"
             android:layout_toRightOf="@+id/iv_search"
             android:background="@color/search_bar_background"
-            android:hint="Enter City"
+            android:hint="@string/enter_city"
             android:inputType="textCapSentences"
             android:maxLines="1"
             android:singleLine="true"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionDone"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#000"
             android:textSize="15sp" />
+        <!--android:imeOptions="actionSearch" changed
+        to action done so it doesnt go to the next textview once the keyboard is returned -->
 
     </RelativeLayout>
     <include layout="@layout/content_main" />
 
+    <!--   <com.google.android.gms.ads.AdView
+           xmlns:ads="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentBottom="true"
+           ads:adSize="BANNER"
+           ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+       </com.google.android.gms.ads.AdView>-->
 
-</android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

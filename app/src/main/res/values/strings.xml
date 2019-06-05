@@ -20,4 +20,7 @@
     <string name="mm">mm</string>
     <string name="forecast">Forecast</string>
     <string name="_3_hourly">3 Hourly</string>
+    <string name="c_f">C / F  </string>
+    <string name="enter_city">Enter City</string>
+    <string name="search_button">Search Button</string>
 </resources>
