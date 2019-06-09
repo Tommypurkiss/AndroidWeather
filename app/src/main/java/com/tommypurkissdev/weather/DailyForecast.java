@@ -7,11 +7,12 @@ class DailyForecast {
 
 
     public String day;
+    public String temp;
     public String tempMin;
     public String tempMax;
 
 
-    public DailyForecast(String day, String tempMin, String tempMax) {
+/*    public DailyForecast(String day, String tempMin, String tempMax) {
         this.day = day;
         Log.d(TAG, "DailyForecast: " + day);
         this.tempMin = tempMin;
@@ -40,5 +41,30 @@ class DailyForecast {
 
     public void setTempMax(String tempMax) {
         this.tempMax = tempMax;
+    }*/
+
+    public DailyForecast(String day, String temp) {
+        this.day = day;
+        Log.d(TAG, "DailyForecast: " + day);
+        this.temp = temp;
+        //this.tempMin = tempMin;
+        //this.tempMax = tempMax;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 }

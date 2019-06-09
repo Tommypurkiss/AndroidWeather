@@ -21,4 +21,5 @@
         <item name="android:windowBackground">@drawable/background</item>
     </style>
 
+
 </resources>

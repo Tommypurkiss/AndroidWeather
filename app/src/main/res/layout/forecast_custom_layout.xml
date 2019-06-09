@@ -23,23 +23,33 @@
         android:layout_weight="66.6"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_forecast_temp_min"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:text="Temp Min"
-            android:textColor="#000" />
+        <!--        <TextView
+                    android:id="@+id/tv_forecast_temp_min"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Temp Min"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tv_forecast_temp_max"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/tv_forecast_temp_min"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:text="Temp Max"
+                    android:textColor="#000" />-->
+
 
         <TextView
-            android:id="@+id/tv_forecast_temp_max"
+            android:id="@+id/tv_forecast_temp"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/tv_forecast_temp_min"
+            android:layout_height="60dp"
             android:gravity="center"
+            android:text="Temp"
             android:textSize="18sp"
-            android:text="Temp Max"
             android:textColor="#000" />
     </LinearLayout>
 

@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -66,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     public static TextView tvTempMin;
     public static TextView tvTempMax;
     public static String dailyForecastTempMin;
+
+    public static String dailyForecastTemp;
 
     public ListView forecastListView;
 
@@ -155,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView tvDayF;
     public static TextView tvTempMinF;
     public static TextView tvTempMaxF;
+    public static TextView tvTempF;
     public String cityName = "";
     public Switch celFahSwitch;
 
@@ -190,8 +195,9 @@ public class MainActivity extends AppCompatActivity {
         forecastListView = findViewById(R.id.forecast_list_view);
 
         tvDayF = findViewById(R.id.tv_forecast_day);
-        tvTempMinF = findViewById(R.id.tv_forecast_temp_min);
-        tvTempMaxF = findViewById(R.id.tv_forecast_temp_max);
+        tvTempF = findViewById(R.id.tv_forecast_temp);
+        //tvTempMinF = findViewById(R.id.tv_forecast_temp_min);
+        //tvTempMaxF = findViewById(R.id.tv_forecast_temp_max);
 
         //forecast 1
         tvForecastOneTitle = findViewById(R.id.tv_forecast_one_title);
@@ -260,16 +266,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         // ad unit :: ca-app-pub-3940256099942544/6300978111
+
+
+        //test ads
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
- /*       AdView adView = new AdView(this);
+        AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-*/
+
 
         /* -------------- METHODS CALLED IN ONCREATE -------------- */
 
@@ -504,23 +513,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void getWeatherByCityName() {
 
-        //TODO - get city name from geo locate and pass it through this url api
-
         cityName = mSearchText.getText().toString();
 
-        //String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=metric&appid=" + API_KEY;
         String urlAPI = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=" + units + "&appid=" + API_KEY;
 
-
-
         Log.d(TAG, "getWeatherByCityName: cityname searched: " + cityName);
-        //Log.d(TAG, "getWeatherByCityName: urlAPI: " + urlAPICityName);
-
-        /*
-         if city name in search text field = to urlAPI (it contains city name) then get the relevant data according to city data
-
-
-         */
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPI, null, new Response.Listener<JSONObject>() {
             @Override
@@ -536,10 +533,6 @@ public class MainActivity extends AppCompatActivity {
                     lat = Double.valueOf(latCity);
 
                     getForecastWeather();
-
-
-                    Log.d(TAG, "onResponse: lat lon " + lat + lon);
-
 
                     JSONObject jsoMain = response.getJSONObject("main");
 
@@ -574,7 +567,6 @@ public class MainActivity extends AppCompatActivity {
                     String name = response.getString("name");
                     tvLocation.setText(name);
 
-                    //todo details
 
                     String humidity = jsoMain.getString("humidity");
                     humidityValue.setText(humidity);
@@ -597,45 +589,9 @@ public class MainActivity extends AppCompatActivity {
                     rainPrecipValue.setText(rain);
 
 
-
-                    /*
-
-                    time zone test
-
-Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
-                    Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
-                    //convert unix timestamp
-                    Date date = new Date(dayTimestamp*1000L);
-
-                    Log.d(TAG, "onResponse: date" + date);
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
-                    // give a timezone reference for formatting (see comment at the bottom)
-                    sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
-                    String formattedDate = sdf.format(date);
- Log.d(TAG, "onResponse: format date" + formattedDate);
-
-                     */
-
-
-                    TimeZone tz = TimeZone.getTimeZone("America/Los_Angeles");
-                    Log.d(TAG, "onResponse: tz" + tz);
-
-
-                    Long dayTimestamp = Long.valueOf(response.getString("dt"));
-
-
-                    Log.d(TAG, "onResponse: dt " + dayTimestamp);
-
-
-
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
         }, new Response.ErrorListener() {
@@ -653,10 +609,7 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
 
     public void getWeatherByDeviceLocation() {
 
-
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=" + units + "&appid=" + API_KEY;
-
-        Log.d(TAG, "string url latlon total: " + urlAPILatLong);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
@@ -682,9 +635,7 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                     //icon
                     weatherIcon = jsoWeather.getString("icon");
 
-
                     weatherIcons();
-
 
                     //temp
                     JSONObject main = response.getJSONObject("main");
@@ -700,11 +651,9 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                     String tempMaxFormat = String.valueOf(tempMax).split("\\.")[0];
                     tvTempMax.setText(tempMaxFormat);
 
-
                     //name of location
                     String name = response.getString("name");
                     tvLocation.setText(name);
-
 
                     //details
                     String humidity = main.getString("humidity");
@@ -726,8 +675,6 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
 
                     rainPrecipValue.setText(rain);
 
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -742,16 +689,9 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
         mRequestQueue.add(jsonObjectRequest);
 
         getForecastWeather();
-        //getDailyForecastWeather();
-
         lastUpdated();
 
-
     }
-
-
-
-
 
     /* -------------- 5 DAY WEATHER BY DEVICE LOCATION -------------- */
 
@@ -766,10 +706,6 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                //String[] cityForecast = new String[0];
-                //ArrayList<String> cityForecast;
-
 
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
@@ -1140,14 +1076,10 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
     }
 
 
-    //MARK:- As to why the min max temps are showing the same or similar it is because it gets the min/max for that current hour shown not for the whole day.
     //TODO:- Fix the min and max to show it for the whole day rather than the hour.
     public void getDailyForecastWeather() {
 
-
         String urlAPILatLong = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + units + "&appid=" + API_KEY;
-
-        //Log.d(TAG, "getForecastWeather: " + urlAPILatLong);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPILatLong, null, new Response.Listener<JSONObject>() {
             @Override
@@ -1156,42 +1088,22 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                 try {
                     JSONArray jsonArray = response.getJSONArray("list");
 
-                    //Log.d(TAG, "onResponse: length " + jsonArray.length()); //length 40
-                    //Log.d(TAG, "onResponse: " + jsonArray); // shows json
-
-
                     ArrayList<DailyForecast> dailyForecast = new ArrayList<>(); // shows all five days when put before the for loop
 
                     for (int i = 0; i < jsonArray.length(); i += 8) {
 
                         JSONObject dayForecast = jsonArray.getJSONObject(i);
 
-                        //Log.d(TAG, "onResponse: day forecast??" + dailyForecast);
-
-                        //dailyForecastDay = dayForecast.getString("dt_txt");
-
                         //forecast days
                         String day = dayForecast.getString("dt_txt");
-                        //Log.d(TAG, "onResponse: day " + day); //shows date and time
-
 
                         Long dayTimestamp = Long.valueOf(dayForecast.getString("dt"));
-                        //Log.d(TAG, "onResponse: dayTimestamp" + dayTimestamp); // unix timestamp
-
-                        //convert unix timestamp
 
                         Date date = new Date(dayTimestamp*1000L);
 
-                        //Log.d(TAG, "onResponse: date" + date);
-
                         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-                        // give a timezone reference for formatting (see comment at the bottom)
                         sdf.setTimeZone(java.util.TimeZone.getTimeZone("Locale"));
                         String formattedDate = sdf.format(date);
-
-                        //Log.d(TAG, "onResponse: format date" + formattedDate);
-
-                        //end convert unix timestamp
 
                         dailyForecastDay = formattedDate;
 
@@ -1200,13 +1112,19 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
 
                         //temps
                         JSONObject jsoMain0 = dayForecast.getJSONObject("main");
-                        String tempMin = jsoMain0.getString("temp_min");
+
+/*                        String tempMin = jsoMain0.getString("temp_min");
                         dailyForecastTempMin = String.valueOf(tempMin).split("\\.")[0];
 
                         String tempMax = jsoMain0.getString("temp_max");
-                        dailyForecastTempMax = String.valueOf(tempMax).split("\\.")[0];
+                        dailyForecastTempMax = String.valueOf(tempMax).split("\\.")[0];*/
 
-                        DailyForecast dailyForecastTotal = new DailyForecast(dailyForecastDay, dailyForecastTempMin, dailyForecastTempMax);
+                        String dayForecastTemp = jsoMain0.getString("temp");
+                        dailyForecastTemp = String.valueOf(dayForecastTemp).split("\\.")[0];
+
+                        //DailyForecast dailyForecastTotal = new DailyForecast(dailyForecastDay, dailyForecastTempMin, dailyForecastTempMax);
+                        DailyForecast dailyForecastTotal = new DailyForecast(dailyForecastDay, dailyForecastTemp);
+
 
                         dailyForecast.add(dailyForecastTotal);
 
@@ -1824,48 +1742,6 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
     /* -------------- LOCATION -------------- */
 
 
-    public void geoLocate() {
-
-        Log.d(TAG, "geoLocate: geolocating");
-
-        String searchString = mSearchText.getText().toString();
-
-        Geocoder geocoder = new Geocoder(MainActivity.this);
-        List<Address> list = new ArrayList<>();
-
-        try {
-            list = geocoder.getFromLocationName(searchString, 1);
-
-        } catch (IOException e) {
-            Log.e(TAG, "geoLocate: IOException e" + e.getMessage());
-        }
-
-        if (list.size() > 0) {
-            Address address = list.get(0);
-
-            Log.d(TAG, "Found a location: " + address.toString());
-
-
-            address.getLatitude();
-            lat = address.getLatitude();
-            address.getLongitude();
-            lon = address.getLongitude();
-
-            String countryName = address.getCountryName();
-
-            //cityName = mSearchText.getText().toString();
-            //cityName = address.getFeatureName();
-
-
-            Log.d(TAG, "geoLocate: lat and lon address: " + address.getLatitude() + address.getLongitude());
-            Log.d(TAG, "geoLocate: lat and lon var: " + lat + lon);
-            Log.d(TAG, "geoLocate: city name: " + tvLocation);
-
-            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     public void getDeviceLocation() {
 
         Log.d(TAG, "getDeviceLocation: Getting Device Current Location");
@@ -1884,6 +1760,7 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
                             Location currentLocation = (Location) task.getResult();
 
                             Log.d(TAG, "current Location is " + currentLocation);
+
 
                             //checks if not null first then returns lat lon value
 
@@ -1915,7 +1792,6 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
 
         }
     }
-
 
     //pops up dialog box asking for location permission
     public void getLocationPermission() {
@@ -1975,10 +1851,3 @@ Long dayTimestamp = Long.valueOf(jso0.getString("dt"));
         }
     }
 }
-
-
-/* MARK: - SPARE CODE
-
-
-
- */
