@@ -7,18 +7,7 @@ import java.text.NumberFormat
 
 class Settings {
 
-
-    //val TAG = "Settings"
-
-
-
     fun celsiusToFahrenheit() {
-
-
-        //get number(double) from tvTemperature.setText(tempFormat) or just temperature;
-
-
-        // VARS
 
         var tempValue: Double = tvTemperature.text.toString().toDouble()
         var tempMinValue: Double = tvTempMin.text.toString().toDouble()
@@ -33,13 +22,6 @@ class Settings {
         var tempForecastSeven: Double = tvForecastSevenTemp.text.toString().toDouble()
         var tempForecastEight: Double = tvForecastEightTemp.text.toString().toDouble()
 
-
-        //var dailyForecastTempMinValue: Double = tvTempMinF.text.toString().toDouble()
-
-
-        //Log.d(TAG, "celsiusToFahrenheit: " + tvTemperature)
-
-        // MAIN TEMP
         var fahrenheitTemp: Double = tempValue * 9 / 5 + 32
         val nf = NumberFormat.getNumberInstance()
         nf.maximumFractionDigits = 0
@@ -47,7 +29,6 @@ class Settings {
         tvTemperature.text = rounded.toString()
 
 
-        // MAIN TEMP MIN
         var fahrenheitTempMin: Double = tempMinValue * 9 / 5 + 32
         val nf1 = NumberFormat.getNumberInstance()
         nf1.maximumFractionDigits = 0
@@ -61,14 +42,6 @@ class Settings {
         val rounded2 = nf2.format(fahrenheitTempMax)
         tvTempMax.text = rounded2.toString()
 
-
-        //TODO FIX
-/*        // DAY FORECAST TEMP MIN
-        var fahrenheitDailyTempMin: Double = dailyForecastTempMinValue * 9 / 5 + 32
-        val nf3 = NumberFormat.getNumberInstance()
-        nf3.setMaximumFractionDigits(0)
-        val rounded3 = nf3.format(fahrenheitDailyTempMin)
-        tvTempMinF.text = rounded3.toString()*/
 
         // DAY FORECAST ONE
         var fahrenheitTempOne: Double = tempForecastOne * 9 / 5 + 32
@@ -126,9 +99,6 @@ class Settings {
         val rounded11 = nf11.format(fahrenheitTempEight)
         tvForecastEightTemp.text = rounded11.toString()
 
-
-        //Log.d(TAG, "celsiusToFahrenheit: " + fahrenheit)
-
     }
 
 
@@ -173,15 +143,6 @@ class Settings {
         nf2.maximumFractionDigits = 0
         val rounded2 = nf2.format(celsiusTempMax)
         tvTempMax.text = rounded2.toString()
-
-
-        //TODO FIX
-/*        // DAY FORECAST TEMP MAX
-        var celsiusDailyTempMax: Double = (dailyForecastTempMaxValue - 32) * 5/9
-        val nf3 = NumberFormat.getNumberInstance()
-        nf3.setMaximumFractionDigits(0)
-        val rounded3 = nf3.format(celsiusDailyTempMax)
-        tvTempMaxF.text = rounded3.toString()*/
 
 
         // DAY FORECAST ONE
@@ -239,7 +200,5 @@ class Settings {
         nf11.maximumFractionDigits = 0
         val rounded11 = nf11.format(celsiusTempEight)
         tvForecastEightTemp.text = rounded11.toString()
-
-
     }
 }

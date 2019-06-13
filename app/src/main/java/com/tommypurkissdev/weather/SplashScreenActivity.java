@@ -16,7 +16,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     public static final int ERROR_DIALOG_REQUEST = 9001;
     public final static String TAG = "SplashScreenActivity";
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         finish();
 
     }
-
 
     public boolean isServiceOK() {
         Log.d(TAG, "isServiceOK: checking google services version");
@@ -49,6 +47,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 }
