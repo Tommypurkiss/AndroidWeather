@@ -247,11 +247,11 @@ public class MainActivity extends AppCompatActivity {
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         // ad unit :: ca-app-pub-3940256099942544/6300978111
         //test ads
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-9479719882402186~8478090471");
 
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        adView.setAdUnitId("ca-app-pub-9479719882402186/7174238351");
 
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
